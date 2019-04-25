@@ -57,12 +57,12 @@ class Login extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar />
+        <Navbar active="login" />
         <Segment id="login-container">
           <Message
             id="login-message"
             attached
-            header="Welcome"
+            header="Welcome!"
             content="Please Log In"
           />
           <Form
