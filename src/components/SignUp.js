@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Segment, Form, Grid, Button, Message } from "semantic-ui-react";
 import { API } from "../data";
+import Navbar from "./Navbar";
 
 class SignUp extends Component {
   state = {
@@ -36,59 +37,66 @@ class SignUp extends Component {
 
   render() {
     return (
-      <Segment id="signup-container">
-        <Message attached header="Welcome!" content="Let's get some basic information:" />
-        <Form className="attached fluid segment" onSubmit={this.handleSubmit}>
-          <Form.Input
-            fluid
-            icon="user"
-            iconPosition="left"
-            label="Username"
-            placeholder="Username"
-            type="text"
-            name="username"
-            value={this.state.username}
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            fluid
-            icon="lock"
-            iconPosition="left"
-            label="Password"
-            placeholder="Password"
-            type="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            fluid
-            icon="lock"
-            iconPosition="left"
-            label="Confirm Password"
-            placeholder="Confirm Password"
-            type="password"
-            name="password_confirmation"
-            value={this.state.password_confirmation}
-            onChange={this.handleChange}
-          />
-          <Grid textAlign="center">
-            <Grid.Column>
-              <Button color="black" type="submit">
-                Sign Up
-              </Button>
-            </Grid.Column>
-          </Grid>
-        </Form>
-        {this.state.errors ? (
+      <Fragment>
+        <Navbar active="signup" />
+        <Segment id="signup-container">
           <Message
             attached
-            warning
-            header="There was a problem with your submission:"
-            list={this.state.errors}
+            header="Welcome!"
+            content="Let's get some basic information:"
           />
-        ) : null}
-      </Segment>
+          <Form className="attached fluid segment" onSubmit={this.handleSubmit}>
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              label="Username"
+              placeholder="Username"
+              type="text"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              label="Password"
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              label="Confirm Password"
+              placeholder="Confirm Password"
+              type="password"
+              name="password_confirmation"
+              value={this.state.password_confirmation}
+              onChange={this.handleChange}
+            />
+            <Grid textAlign="center">
+              <Grid.Column>
+                <Button color="black" type="submit">
+                  Sign Up
+                </Button>
+              </Grid.Column>
+            </Grid>
+          </Form>
+          {this.state.errors ? (
+            <Message
+              attached
+              warning
+              header="There was a problem with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
+        </Segment>
+      </Fragment>
     );
   }
 }

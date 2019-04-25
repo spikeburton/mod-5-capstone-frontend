@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Form,
   Button,
@@ -7,6 +7,7 @@ import {
   GridColumn,
   Grid
 } from "semantic-ui-react";
+import Navbar from './Navbar'
 import { API } from "../data";
 
 class Login extends Component {
@@ -55,52 +56,60 @@ class Login extends Component {
 
   render() {
     return (
-      <Segment id="login-container">
-        <Message id="login-message" attached header="Welcome" content="Please Log In" />
-        <Form
-          className="attached fluid segment"
-          onSubmit={this.handleSubmit}
-          onReset={this.handleReset}
-        >
-          <Form.Input
-            fluid
-            icon="user"
-            iconPosition="left"
-            label="Username"
-            placeholder="Username"
-            type="text"
-            name="username"
-            value={this.state.username}
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            fluid
-            icon="lock"
-            iconPosition="left"
-            label="Password"
-            placeholder="Password"
-            type="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
-          <Grid textAlign="center">
-            <GridColumn>
-              <Button color="black" type="submit">
-                Login
-              </Button>
-            </GridColumn>
-          </Grid>
-        </Form>
-        {this.state.errors ? (
+      <Fragment>
+        <Navbar />
+        <Segment id="login-container">
           <Message
+            id="login-message"
             attached
-            error
-            header="There were errors with your submission:"
-            list={this.state.errors}
+            header="Welcome"
+            content="Please Log In"
           />
-        ) : null}
-      </Segment>
+          <Form
+            className="attached fluid segment"
+            onSubmit={this.handleSubmit}
+            onReset={this.handleReset}
+          >
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              label="Username"
+              placeholder="Username"
+              type="text"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              label="Password"
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <Grid textAlign="center">
+              <GridColumn>
+                <Button color="black" type="submit">
+                  Login
+                </Button>
+              </GridColumn>
+            </Grid>
+          </Form>
+          {this.state.errors ? (
+            <Message
+              attached
+              error
+              header="There were errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
+        </Segment>
+      </Fragment>
     );
   }
 }
