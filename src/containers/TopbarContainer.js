@@ -5,7 +5,7 @@ import Topbar from '../components/Topbar';
 class TopbarContainer extends Component {
   render() {
     return (
-      <div id="header-container">
+      <div id="topbar-container">
         <Navbar active="main" />
         <Topbar />
       </div>
