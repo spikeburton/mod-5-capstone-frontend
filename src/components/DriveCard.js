@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Image, Button, Icon } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
+import SaveButton from "./SaveButton";
 
 const DriveCard = props => {
   return (
@@ -15,10 +16,7 @@ const DriveCard = props => {
         {/* <Card.Description>{props.description}</Card.Description> */}
       </Card.Content>
       <Card.Content extra textAlign="center">
-        <Button>
-          <Icon name="heart" />
-          Save
-        </Button>
+        <SaveButton />
       </Card.Content>
     </Card>
   );
