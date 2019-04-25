@@ -38,6 +38,13 @@ body {
   background: #3d3737;
 }
 
+#main-content {
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid black;
+  background: #eee;
+}
+
 #login-container {
   margin: 40px auto 0;
   width: 60%;
