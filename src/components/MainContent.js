@@ -1,12 +1,17 @@
 import React from "react";
-import { CardGroup, Card } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
+import DriveCard from "./DriveCard";
 
-const MainContent = () => {
+const MainContent = props => {
   return (
     <div id="main-content">
-      <CardGroup stackable centered itemsPerRow={4}>
-        <Card content="Hello, World!" />
-      </CardGroup>
+      <div id="main-content-group">
+        <Card.Group centered stackable itemsPerRow={3}>
+          {props.drives.map((drive, i) => (
+            <DriveCard key={i} {...drive} />
+          ))}
+        </Card.Group>
+      </div>
     </div>
   );
 };

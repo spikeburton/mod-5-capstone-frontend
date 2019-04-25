@@ -39,10 +39,15 @@ body {
 }
 
 #main-content {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   padding: 20px;
   border: 1px solid black;
   background: #eee;
+}
+
+#main-content-group {
+  margin: 0 auto;
+  max-width: 800px;
 }
 
 #login-container {
