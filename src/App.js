@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-import Navbar from "./components/Navbar";
+import MainContainer from "./containers/MainContainer";
 
 class App extends Component {
   render() {
@@ -10,6 +10,7 @@ class App extends Component {
       <div id="app-container">
         <Router>
             <Switch>
+              <Route exact path={"/"} component={MainContainer} />
               <Route exact path={"/login"} component={Login} />
               <Route exact path={"/signup"} component={SignUp} />
             </Switch>

@@ -6,8 +6,8 @@ const Navbar = props => {
   const { active } = props
 
   return (
-    <Menu secondary>
-      <Link to="/" className={active === "home" ? "item active" : "item"}>
+    <Menu inverted>
+      <Link to="/" className={active === "main" ? "item active" : "item"}>
         <div className="content">Home</div>
       </Link>
       <Menu.Menu position="right">
