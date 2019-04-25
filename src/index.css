@@ -1,9 +1,33 @@
 body {
   margin: 0;
   padding: 0;
+  background: #aac483;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app-container {
+  margin: 0 auto;
+  width: 800px;
+  height: 600px;
+  border: 1px solid black;
+}
+
+#login-container {
+  margin: 40px auto 0;
+  width: 60%;
+}
+
+#login-message {
+  /* margin: 0 auto; */
+  /* width: 80%; */
+  /* text-align: center; */
+}
+
+#signup-container {
+  margin: 40px auto 0;
+  width: 60%;
 }
