@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Navbar from '../components/Navbar';
+import TopbarContainer from './TopbarContainer';
 
 class MainContainer extends Component {
   render() {
     return (
       <div>
-        <Navbar active="main" />
+        <TopbarContainer />
       </div>
     )
   }
