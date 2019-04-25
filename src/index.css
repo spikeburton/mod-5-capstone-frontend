@@ -15,7 +15,7 @@ body {
   margin: 0 auto;
   /* width: 800px; */
   /* height: 600px; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 #topbar-container {
@@ -31,6 +31,11 @@ body {
 #bridge-img {
   height: 170px;
   width: 200px;
+}
+
+#sub-menu {
+  /* background: #c7b7b7; */
+  background: #3d3737;
 }
 
 #login-container {
