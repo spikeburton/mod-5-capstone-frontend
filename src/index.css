@@ -21,7 +21,8 @@ body {
   width: 60%;
 }
 
-#login-form {
+#login-message {
   /* margin: 0 auto; */
   /* width: 80%; */
+  /* text-align: center; */
 }
