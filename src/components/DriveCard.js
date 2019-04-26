@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Image } from "semantic-ui-react";
 import SaveButton from "./SaveButton";
+import ViewButton from "./ViewButton";
 
 const DriveCard = props => {
   return (
@@ -16,6 +17,7 @@ const DriveCard = props => {
         {/* <Card.Description>{props.description}</Card.Description> */}
       </Card.Content>
       <Card.Content extra textAlign="center">
+        <ViewButton />
         <SaveButton />
       </Card.Content>
     </Card>
