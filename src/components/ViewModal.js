@@ -3,6 +3,7 @@ import { Modal, Grid, Segment } from "semantic-ui-react";
 import mapboxgl, { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import SaveButton from "./SaveButton";
+import CloseButton from "./CloseButton";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
@@ -47,6 +48,7 @@ class ViewModal extends Component {
               </Grid>
             </Modal.Content>
             <Modal.Actions>
+              <CloseButton />
               <SaveButton />
             </Modal.Actions>
           </Fragment>
