@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Modal, Grid } from "semantic-ui-react";
+import { Modal, Grid, Segment } from "semantic-ui-react";
 import mapboxgl, { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css"
 
@@ -7,8 +7,14 @@ mapboxgl.accessToken = "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzb
 
 class ViewModal extends Component {
   handleMount = () => {
-    console.log("Modal mounted");
-
+    const { bound_a_lng, bound_a_lat } = this.props.viewed
+    console.log(bound_a_lng)
+    this.map = new Map({
+      container: this.mapContainer,
+      style: "mapbox://styles/mapbox/navigation-guidance-day-v2",
+      center: [bound_a_lng, bound_a_lat],
+      zoom: 7
+    })
   };
 
   render() {
@@ -26,6 +32,7 @@ class ViewModal extends Component {
             <Modal.Content>
               <Grid centered columns={2}>
                 <Grid.Column>
+                  <p>{viewed.description}</p>
                   <p>Directions</p>
                 </Grid.Column>
                 <Grid.Column>
@@ -37,7 +44,7 @@ class ViewModal extends Component {
               </Grid>
             </Modal.Content>
           </Fragment>
-        ) : null}
+        ) : <Segment placeholder />}
       </Modal>
     );
   }
