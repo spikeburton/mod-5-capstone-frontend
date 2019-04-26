@@ -1,16 +1,21 @@
 import React, { Component, Fragment } from "react";
-import { Modal, Grid, Segment } from "semantic-ui-react";
+import { Modal, Grid, Segment, List } from "semantic-ui-react";
 import SaveButton from "./SaveButton";
 import CloseButton from "./CloseButton";
 import mapboxgl, { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import { DIRECTIONS_API } from "../data";
+import DirectionListItem from "./DirectionListItem";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
 
 class ViewModal extends Component {
+  state = {
+    directions: []
+  };
+
   handleMount = () => {
     const { viewed } = this.props;
     const bounds = {
@@ -23,7 +28,10 @@ class ViewModal extends Component {
     this.map = new Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/navigation-guidance-day-v2",
-      center: [bounds.lngA, bounds.latA],
+      center: [
+        (bounds.lngA + bounds.lngB) / 2,
+        (bounds.latA + bounds.latB) / 2
+      ],
       zoom: 8
     });
 
@@ -31,16 +39,22 @@ class ViewModal extends Component {
       fetch(
         `${DIRECTIONS_API}/${bounds.lngA},${bounds.latA};${bounds.lngB},${
           bounds.latB
-        }?geometries=geojson&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
+        }?geometries=geojson&overview=full&steps=true&access_token=${
+          mapboxgl.accessToken
+        }`
       )
         .then(response => response.json())
-        .then(this.drawRoute);
+        .then(({ routes }) => {
+          this.setState({directions: routes[0].legs[0].steps})
+          this.drawRoute(routes);
+          // console.log(routes[0].legs[0].steps);
+        });
 
       this.drawBounds(bounds);
     });
   };
 
-  drawRoute = ({ routes }) => {
+  drawRoute = routes => {
     // console.log(routes[0]);
     const route = routes[0].geometry.coordinates;
     const geojson = {
@@ -77,8 +91,8 @@ class ViewModal extends Component {
   };
 
   drawBounds = bounds => {
-    this.drawPoint([bounds.lngA, bounds.latA], "A")
-    this.drawPoint([bounds.lngB, bounds.latB], "B")
+    this.drawPoint([bounds.lngA, bounds.latA], "A");
+    this.drawPoint([bounds.lngB, bounds.latB], "B");
   };
 
   drawPoint = (coords, name) => {
@@ -130,14 +144,20 @@ class ViewModal extends Component {
           <Fragment>
             <Modal.Header>{viewed.name}</Modal.Header>
             <Modal.Content>
+              <Modal.Description>{viewed.description}</Modal.Description>
               <Grid centered columns={2}>
                 <Grid.Column>
-                  <p>{viewed.description}</p>
-                  <p>Directions</p>
+                  <div id="directions-container" className="map-modal-child">
+                    {/* <p>Directions</p> */}
+                    <List celled>
+                      {this.state.directions.map((direction, i) => <DirectionListItem key={i} {...direction} />)}
+                    </List>
+                  </div>
                 </Grid.Column>
                 <Grid.Column>
                   <div
                     id="map-container"
+                    className="map-modal-child"
                     ref={el => (this.mapContainer = el)}
                   />
                 </Grid.Column>
