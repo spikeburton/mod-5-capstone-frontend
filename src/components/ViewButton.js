@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, Icon } from 'semantic-ui-react';
 
-const ViewButton = () => {
+const ViewButton = props => {
   return (
-    <Button onClick={() => console.log("view button clicked")}>
+    <Button onClick={() => props.handleView(props.id)}>
       <Icon name="map" />
       View
     </Button>

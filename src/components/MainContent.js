@@ -8,7 +8,7 @@ const MainContent = props => {
       <div id="main-content-group">
         <Card.Group centered stackable itemsPerRow={3}>
           {props.drives.map((drive, i) => (
-            <DriveCard key={i} {...drive} />
+            <DriveCard key={i} {...drive} handleView={props.handleView} />
           ))}
         </Card.Group>
       </div>

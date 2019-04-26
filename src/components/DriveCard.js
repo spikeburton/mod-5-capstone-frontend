@@ -17,7 +17,7 @@ const DriveCard = props => {
         {/* <Card.Description>{props.description}</Card.Description> */}
       </Card.Content>
       <Card.Content extra textAlign="center">
-        <ViewButton />
+        <ViewButton handleView={props.handleView} id={props.id} />
         <SaveButton />
       </Card.Content>
     </Card>
