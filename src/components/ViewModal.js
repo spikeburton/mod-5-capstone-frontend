@@ -68,8 +68,8 @@ class ViewModal extends Component {
           "line-cap": "round"
         },
         paint: {
-          "line-color": "#3887be",
-          "line-width": 5,
+          "line-color": "#203834",
+          "line-width": 7,
           "line-opacity": 0.75
         }
       });
@@ -107,8 +107,8 @@ class ViewModal extends Component {
           data: pointData
         },
         paint: {
-          "circle-radius": 10,
-          "circle-color": "#3887be"
+          "circle-radius": 9,
+          "circle-color": "#203834"
         }
       });
     }
