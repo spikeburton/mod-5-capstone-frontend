@@ -24,17 +24,95 @@ class ViewModal extends Component {
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/navigation-guidance-day-v2",
       center: [bounds.lngA, bounds.latA],
-      zoom: 7
+      zoom: 8
     });
 
-    fetch(`${DIRECTIONS_API}/${bounds.lngA},${bounds.latA};${bounds.lngB},${bounds.latB}?geometries=geojson&steps=true&access_token=${mapboxgl.accessToken}`)
-    .then(response => response.json())
-    .then(this.drawRoute)
+    this.map.on("load", () => {
+      fetch(
+        `${DIRECTIONS_API}/${bounds.lngA},${bounds.latA};${bounds.lngB},${
+          bounds.latB
+        }?geometries=geojson&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
+      )
+        .then(response => response.json())
+        .then(this.drawRoute);
+
+      this.drawBounds(bounds);
+    });
   };
 
-  drawRoute = payload => {
-    console.log(payload)
-  }
+  drawRoute = ({ routes }) => {
+    // console.log(routes[0]);
+    const route = routes[0].geometry.coordinates;
+    const geojson = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: route
+      }
+    };
+
+    if (this.map.getSource("route")) {
+      this.map.getSource("route").setData(geojson);
+    } else {
+      // make a new request
+      this.map.addLayer({
+        id: "route",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: geojson
+        },
+        layout: {
+          "line-join": "round",
+          "line-cap": "round"
+        },
+        paint: {
+          "line-color": "#3887be",
+          "line-width": 5,
+          "line-opacity": 0.75
+        }
+      });
+    }
+  };
+
+  drawBounds = bounds => {
+    this.drawPoint([bounds.lngA, bounds.latA], "A")
+    this.drawPoint([bounds.lngB, bounds.latB], "B")
+  };
+
+  drawPoint = (coords, name) => {
+    const pointData = {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "Point",
+            coordinates: coords
+          }
+        }
+      ]
+    };
+
+    if (this.map.getLayer(name)) {
+      this.map.getSource(name).setData(pointData);
+    } else {
+      this.map.addLayer({
+        id: name,
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: pointData
+        },
+        paint: {
+          "circle-radius": 10,
+          "circle-color": "#3887be"
+        }
+      });
+    }
+  };
 
   render() {
     const { viewed } = this.props;
