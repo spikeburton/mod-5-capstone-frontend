@@ -147,12 +147,12 @@ class ViewModal extends Component {
               <Modal.Description>{viewed.description}</Modal.Description>
               <Grid centered columns={2}>
                 <Grid.Column>
-                  <div id="directions-container" className="map-modal-child">
+                  {/* <div id="directions-container" className="map-modal-child"> */}
                     {/* <p>Directions</p> */}
                     <List celled>
                       {this.state.directions.map((direction, i) => <DirectionListItem key={i} {...direction} />)}
                     </List>
-                  </div>
+                  {/* </div> */}
                 </Grid.Column>
                 <Grid.Column>
                   <div
