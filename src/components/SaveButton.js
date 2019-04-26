@@ -3,7 +3,7 @@ import { Button, Icon } from "semantic-ui-react";
 
 const SaveButton = () => {
   return (
-    <Button>
+    <Button onClick={() => console.log("clicked")}>
       <Icon name="heart" />
       Save
     </Button>
