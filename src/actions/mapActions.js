@@ -12,6 +12,10 @@ export const closeModal = () => {
   return { type: "CLOSE_MODAL" };
 };
 
+export const setContainer = container => {
+  return { type: "SET_CONTAINER", container }
+}
+
 export const fetchDirections = bounds => {
   return dispatch => {
     dispatch({ type: "LOADING_DIRECTIONS" });
