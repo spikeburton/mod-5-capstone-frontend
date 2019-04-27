@@ -1,5 +1,10 @@
-export const drivesReducer = (state = [], action) => {
+export const drivesReducer = (state = { data: [] }, action) => {
   switch (action.type) {
-    default: return state
+    case "LOADING_DRIVES":
+      return { loading: true };
+    case "FETCH_DRIVES":
+      return { loading: false, data: action.payload };
+    default:
+      return state;
   }
-}
+};
