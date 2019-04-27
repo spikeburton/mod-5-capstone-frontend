@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Icon } from 'semantic-ui-react';
+import React from "react";
+import { Button, Icon } from "semantic-ui-react";
 
 const ViewButton = props => {
   return (
@@ -7,7 +7,7 @@ const ViewButton = props => {
       <Icon name="map" />
       View
     </Button>
-  )
-}
+  );
+};
 
-export default ViewButton
+export default ViewButton;
