@@ -29,9 +29,6 @@ export const fetchDirections = bounds => {
           route: routes[0].geometry.coordinates,
           directions: routes[0].legs[0].steps
         });
-        // this.setState({ directions: routes[0].legs[0].steps });
-        // this.drawRoute(routes);
-        // console.log(routes[0].legs[0].steps);
       });
   };
 };

@@ -30,7 +30,6 @@ class ViewModal extends Component {
               <Grid centered columns={2}>
                 <Grid.Column>
                   {/* <div id="directions-container" className="map-modal-child"> */}
-                  {/* <p>Directions</p> */}
                   <List relaxed divided inverted>
                     {this.props.directions.map((direction, i) => (
                       <DirectionListItem key={i} {...direction} />
