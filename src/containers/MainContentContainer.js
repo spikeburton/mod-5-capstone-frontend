@@ -40,8 +40,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchDrives: () => fetchDrives()(dispatch),
-    openModal: current => dispatch({ type: "OPEN_MODAL", current }),
-    closeModal: () => dispatch({ type: "CLOSE_MODAL" })
+    openModal: current => dispatch(openModal(current)),
+    closeModal: () => dispatch(closeModal())
   };
 };
 

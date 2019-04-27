@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { Modal, Grid, Segment, List, Divider } from "semantic-ui-react";
-import SaveButton from "./SaveButton";
-import CloseButton from "./CloseButton";
 import mapboxgl, { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { DIRECTIONS_API } from "../data";
+import SaveButton from "./SaveButton";
+import CloseButton from "./CloseButton";
 import DirectionListItem from "./DirectionListItem";
+
+import { DIRECTIONS_API } from "../data";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
