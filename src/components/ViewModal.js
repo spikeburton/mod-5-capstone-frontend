@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import { Modal, Grid, Segment, List, Divider } from "semantic-ui-react";
 import mapboxgl, { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -7,7 +8,8 @@ import SaveButton from "./SaveButton";
 import CloseButton from "./CloseButton";
 import DirectionListItem from "./DirectionListItem";
 
-import { DIRECTIONS_API } from "../data";
+// import { DIRECTIONS_API } from "../data";
+import { fetchDirections } from "../actions/mapActions";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
@@ -37,27 +39,29 @@ class ViewModal extends Component {
     });
 
     this.map.on("load", () => {
-      fetch(
-        `${DIRECTIONS_API}/${bounds.lngA},${bounds.latA};${bounds.lngB},${
-          bounds.latB
-        }?geometries=geojson&overview=full&steps=true&access_token=${
-          mapboxgl.accessToken
-        }`
-      )
-        .then(response => response.json())
-        .then(({ routes }) => {
-          this.setState({ directions: routes[0].legs[0].steps });
-          this.drawRoute(routes);
-          // console.log(routes[0].legs[0].steps);
-        });
-
-      this.drawBounds(bounds);
+      // fetch(
+      //   `${DIRECTIONS_API}/${bounds.lngA},${bounds.latA};${bounds.lngB},${
+      //     bounds.latB
+      //   }?geometries=geojson&overview=full&steps=true&access_token=${
+      //     mapboxgl.accessToken
+      //   }`
+      // )
+      //   .then(response => response.json())
+      //   .then(({ routes }) => {
+      //     this.setState({ directions: routes[0].legs[0].steps });
+      //     this.drawRoute(routes);
+      //     // console.log(routes[0].legs[0].steps);
+      //   });
+      this.props.fetchDirections(bounds).then(() => {
+        this.drawBounds(bounds);
+        this.drawRoute(this.props.route);
+      });
     });
   };
 
-  drawRoute = routes => {
+  drawRoute = route => {
     // console.log(routes[0]);
-    const route = routes[0].geometry.coordinates;
+    // const route = routes[0].geometry.coordinates;
     const geojson = {
       type: "Feature",
       properties: {},
@@ -190,4 +194,21 @@ class ViewModal extends Component {
   }
 }
 
-export default ViewModal;
+const mapStateToProps = state => {
+  return {
+    current: state.map.current,
+    route: state.map.route,
+    directions: state.map.directions
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchDirections: bounds => fetchDirections(bounds)(dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ViewModal);
