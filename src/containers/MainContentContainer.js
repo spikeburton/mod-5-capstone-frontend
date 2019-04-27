@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import SubMenu from "../components/SubMenu";
 import MainContent from "../components/MainContent";
-// import { API } from "../data";
 import ViewModal from "../components/ViewModal";
 
 import { fetchDrives } from "../actions/driveActions";
