@@ -4,6 +4,7 @@ import SaveButton from "./SaveButton";
 import ViewButton from "./ViewButton";
 
 const DriveCard = props => {
+  const { drive } = props
   return (
     <Card raised>
       <Image
@@ -12,12 +13,12 @@ const DriveCard = props => {
         style={{ height: "200px" }}
       />
       <Card.Content>
-        <Card.Header>{props.name}</Card.Header>
-        <Card.Meta>{props.state}</Card.Meta>
+        <Card.Header>{drive.name}</Card.Header>
+        <Card.Meta>{drive.state}</Card.Meta>
         {/* <Card.Description>{props.description}</Card.Description> */}
       </Card.Content>
       <Card.Content extra textAlign="center">
-        <ViewButton handleView={props.handleView} id={props.id} />
+        <ViewButton handleView={props.handleView} current={drive} />
         <SaveButton />
       </Card.Content>
     </Card>

@@ -1,28 +1,23 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import { Modal, Grid, Segment, List, Divider } from "semantic-ui-react";
-import SaveButton from "./SaveButton";
-import CloseButton from "./CloseButton";
-import mapboxgl, { Map } from "mapbox-gl";
+import { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { DIRECTIONS_API } from "../data";
+import SaveButton from "./SaveButton";
+import CloseButton from "./CloseButton";
 import DirectionListItem from "./DirectionListItem";
 
-mapboxgl.accessToken =
-  "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
+import { closeModal, fetchDirections } from "../actions/mapActions";
 
 class ViewModal extends Component {
-  state = {
-    directions: []
-  };
-
   handleMount = () => {
-    const { viewed } = this.props;
+    const { current } = this.props;
     const bounds = {
-      lngA: viewed.bound_a_lng,
-      latA: viewed.bound_a_lat,
-      lngB: viewed.bound_b_lng,
-      latB: viewed.bound_b_lat
+      lngA: current.bound_a_lng,
+      latA: current.bound_a_lat,
+      lngB: current.bound_b_lng,
+      latB: current.bound_b_lat
     };
 
     this.map = new Map({
@@ -36,27 +31,14 @@ class ViewModal extends Component {
     });
 
     this.map.on("load", () => {
-      fetch(
-        `${DIRECTIONS_API}/${bounds.lngA},${bounds.latA};${bounds.lngB},${
-          bounds.latB
-        }?geometries=geojson&overview=full&steps=true&access_token=${
-          mapboxgl.accessToken
-        }`
-      )
-        .then(response => response.json())
-        .then(({ routes }) => {
-          this.setState({ directions: routes[0].legs[0].steps });
-          this.drawRoute(routes);
-          // console.log(routes[0].legs[0].steps);
-        });
-
-      this.drawBounds(bounds);
+      this.props.fetchDirections(bounds).then(() => {
+        this.drawBounds(bounds);
+        this.drawRoute(this.props.route);
+      });
     });
   };
 
-  drawRoute = routes => {
-    // console.log(routes[0]);
-    const route = routes[0].geometry.coordinates;
+  drawRoute = route => {
     const geojson = {
       type: "Feature",
       properties: {},
@@ -129,14 +111,11 @@ class ViewModal extends Component {
   };
 
   handleUnmount = () => {
-    this.setState({
-      directions: []
-    });
     if (this.map) this.map.remove();
   };
 
   render() {
-    const { viewed } = this.props;
+    const { current } = this.props;
 
     return (
       <Modal
@@ -148,12 +127,12 @@ class ViewModal extends Component {
         basic
         // dimmer="blurring"
       >
-        {viewed ? (
+        {current ? (
           <Fragment>
-            <Modal.Header>{viewed.name}</Modal.Header>
+            <Modal.Header>{current.name}</Modal.Header>
             <Modal.Content>
               <Modal.Description>
-                {viewed.description}
+                {current.description}
                 <Divider />
               </Modal.Description>
               <Grid centered columns={2}>
@@ -161,7 +140,7 @@ class ViewModal extends Component {
                   {/* <div id="directions-container" className="map-modal-child"> */}
                   {/* <p>Directions</p> */}
                   <List relaxed divided inverted>
-                    {this.state.directions.map((direction, i) => (
+                    {this.props.directions.map((direction, i) => (
                       <DirectionListItem key={i} {...direction} />
                     ))}
                   </List>
@@ -189,4 +168,23 @@ class ViewModal extends Component {
   }
 }
 
-export default ViewModal;
+const mapStateToProps = state => {
+  return {
+    modalOpen: state.map.modalOpen,
+    current: state.map.current,
+    route: state.map.route,
+    directions: state.map.directions
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchDirections: bounds => fetchDirections(bounds)(dispatch),
+    closeModal: () => dispatch(closeModal())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ViewModal);
