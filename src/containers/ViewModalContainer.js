@@ -17,7 +17,7 @@ class ViewModalContainer extends Component {
     };
 
     this.map = new Map({
-      container: this.mapContainer,
+      container: 'map-container',
       style: "mapbox://styles/mapbox/navigation-guidance-day-v2",
       center: [
         (bounds.lngA + bounds.lngB) / 2,
@@ -117,6 +117,9 @@ class ViewModalContainer extends Component {
         current={this.props.current}
         route={this.props.route}
         directions={this.props.directions}
+        handleMount={this.handleMount}
+        handleUnmount={this.handleUnmount}
+        handleClose={this.props.closeModal}
       />
     );
   }
