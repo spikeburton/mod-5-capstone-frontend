@@ -6,7 +6,7 @@ import MainContent from "../components/MainContent";
 import ViewModal from "../components/ViewModal";
 
 import { fetchDrives } from "../actions/driveActions";
-import { openModal, closeModal } from "../actions/mapActions";
+import { openModal } from "../actions/mapActions";
 
 class MainContentContainer extends Component {
   componentDidMount() {
@@ -22,8 +22,8 @@ class MainContentContainer extends Component {
           handleView={this.props.openModal}
         />
         <ViewModal
-          options={this.props.map}
-          closeModal={this.props.closeModal}
+          // options={this.props.map}
+          // closeModal={this.props.closeModal}
         />
       </div>
     );
@@ -32,16 +32,16 @@ class MainContentContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    drives: state.drives.data,
-    map: state.map
+    drives: state.drives.data
+    // map: state.map
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchDrives: () => fetchDrives()(dispatch),
-    openModal: current => dispatch(openModal(current)),
-    closeModal: () => dispatch(closeModal())
+    openModal: current => dispatch(openModal(current))
+    // closeModal: () => dispatch(closeModal())
   };
 };
 

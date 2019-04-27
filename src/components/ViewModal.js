@@ -1,26 +1,18 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Modal, Grid, Segment, List, Divider } from "semantic-ui-react";
-import mapboxgl, { Map } from "mapbox-gl";
+import { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import SaveButton from "./SaveButton";
 import CloseButton from "./CloseButton";
 import DirectionListItem from "./DirectionListItem";
 
-// import { DIRECTIONS_API } from "../data";
-import { fetchDirections } from "../actions/mapActions";
-
-mapboxgl.accessToken =
-  "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
+import { closeModal, fetchDirections } from "../actions/mapActions";
 
 class ViewModal extends Component {
-  state = {
-    directions: []
-  };
-
   handleMount = () => {
-    const { current } = this.props.options;
+    const { current } = this.props;
     const bounds = {
       lngA: current.bound_a_lng,
       latA: current.bound_a_lat,
@@ -39,19 +31,6 @@ class ViewModal extends Component {
     });
 
     this.map.on("load", () => {
-      // fetch(
-      //   `${DIRECTIONS_API}/${bounds.lngA},${bounds.latA};${bounds.lngB},${
-      //     bounds.latB
-      //   }?geometries=geojson&overview=full&steps=true&access_token=${
-      //     mapboxgl.accessToken
-      //   }`
-      // )
-      //   .then(response => response.json())
-      //   .then(({ routes }) => {
-      //     this.setState({ directions: routes[0].legs[0].steps });
-      //     this.drawRoute(routes);
-      //     // console.log(routes[0].legs[0].steps);
-      //   });
       this.props.fetchDirections(bounds).then(() => {
         this.drawBounds(bounds);
         this.drawRoute(this.props.route);
@@ -60,8 +39,6 @@ class ViewModal extends Component {
   };
 
   drawRoute = route => {
-    // console.log(routes[0]);
-    // const route = routes[0].geometry.coordinates;
     const geojson = {
       type: "Feature",
       properties: {},
@@ -134,18 +111,15 @@ class ViewModal extends Component {
   };
 
   handleUnmount = () => {
-    this.setState({
-      directions: []
-    });
     if (this.map) this.map.remove();
   };
 
   render() {
-    const { current } = this.props.options;
+    const { current } = this.props;
 
     return (
       <Modal
-        open={this.props.options.modalOpen}
+        open={this.props.modalOpen}
         onClose={this.props.closeModal}
         onMount={this.handleMount}
         onUnmount={this.handleUnmount}
@@ -166,7 +140,7 @@ class ViewModal extends Component {
                   {/* <div id="directions-container" className="map-modal-child"> */}
                   {/* <p>Directions</p> */}
                   <List relaxed divided inverted>
-                    {this.state.directions.map((direction, i) => (
+                    {this.props.directions.map((direction, i) => (
                       <DirectionListItem key={i} {...direction} />
                     ))}
                   </List>
@@ -196,6 +170,7 @@ class ViewModal extends Component {
 
 const mapStateToProps = state => {
   return {
+    modalOpen: state.map.modalOpen,
     current: state.map.current,
     route: state.map.route,
     directions: state.map.directions
@@ -204,7 +179,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchDirections: bounds => fetchDirections(bounds)(dispatch)
+    fetchDirections: bounds => fetchDirections(bounds)(dispatch),
+    closeModal: () => dispatch(closeModal())
   };
 };
 

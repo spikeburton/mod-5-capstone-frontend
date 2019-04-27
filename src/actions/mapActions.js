@@ -1,4 +1,8 @@
+import mapboxgl from "mapbox-gl";
 import { DIRECTIONS_API } from "../data";
+
+mapboxgl.accessToken =
+  "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
 
 export const openModal = current => {
   return { type: "OPEN_MODAL", current };
