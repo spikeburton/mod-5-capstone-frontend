@@ -1,5 +1,5 @@
 export const mapReducer = (
-  state = { modalOpen: false, current: null, loading: false, directions: [] },
+  state = { modalOpen: false, current: null, loading: false, route: [], directions: [] },
   action
 ) => {
   switch (action.type) {
@@ -10,7 +10,7 @@ export const mapReducer = (
     case "LOADING_DIRECTIONS":
       return { ...state, loading: true }
     case "FETCH_DIRECTIONS":
-      return { ...state, loading: false, directions: action.payload }
+      return { ...state, loading: false, route: action.route, directions: action.directions }
     default:
       return state;
   }
