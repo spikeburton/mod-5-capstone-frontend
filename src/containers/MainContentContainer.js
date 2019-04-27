@@ -21,10 +21,7 @@ class MainContentContainer extends Component {
           drives={this.props.drives}
           handleView={this.props.openModal}
         />
-        <ViewModal
-          // options={this.props.map}
-          // closeModal={this.props.closeModal}
-        />
+        <ViewModal />
       </div>
     );
   }
@@ -33,7 +30,6 @@ class MainContentContainer extends Component {
 const mapStateToProps = state => {
   return {
     drives: state.drives.data
-    // map: state.map
   };
 };
 
@@ -41,7 +37,6 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchDrives: () => fetchDrives()(dispatch),
     openModal: current => dispatch(openModal(current))
-    // closeModal: () => dispatch(closeModal())
   };
 };
 
