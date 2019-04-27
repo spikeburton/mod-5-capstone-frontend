@@ -36,7 +36,7 @@ class MainContentContainer extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         <SubMenu />
@@ -53,13 +53,16 @@ class MainContentContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    drives: state.drives.data
+    drives: state.drives.data,
+    map: state.map
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchDrives: () => fetchDrives()(dispatch)
+    fetchDrives: () => fetchDrives()(dispatch),
+    openModal: current => dispatch({ type: "OPEN_MODAL", current }),
+    closeModal: () => dispatch({ type: "CLOSE_MODAL" })
   };
 };
 
