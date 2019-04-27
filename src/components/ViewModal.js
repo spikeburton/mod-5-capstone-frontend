@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Modal, Grid, Segment, List, Divider } from "semantic-ui-react";
+import { Modal, Grid, Segment, List, Divider, Loader } from "semantic-ui-react";
 
 import SaveButton from "./SaveButton";
 import CloseButton from "./CloseButton";
@@ -30,11 +30,15 @@ class ViewModal extends Component {
               <Grid centered columns={2}>
                 <Grid.Column>
                   {/* <div id="directions-container" className="map-modal-child"> */}
-                  <List relaxed divided inverted>
-                    {this.props.directions.map((direction, i) => (
-                      <DirectionListItem key={i} {...direction} />
-                    ))}
-                  </List>
+                  {this.props.directions.length > 0 ? (
+                    <List relaxed divided inverted>
+                      {this.props.directions.map((direction, i) => (
+                        <DirectionListItem key={i} {...direction} />
+                      ))}
+                    </List>
+                  ) : (
+                    <Loader>Loading</Loader>
+                  )}
                   {/* </div> */}
                 </Grid.Column>
                 <Grid.Column>
