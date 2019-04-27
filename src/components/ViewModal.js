@@ -17,12 +17,12 @@ class ViewModal extends Component {
   };
 
   handleMount = () => {
-    const { viewed } = this.props;
+    const { current } = this.props.options;
     const bounds = {
-      lngA: viewed.bound_a_lng,
-      latA: viewed.bound_a_lat,
-      lngB: viewed.bound_b_lng,
-      latB: viewed.bound_b_lat
+      lngA: current.bound_a_lng,
+      latA: current.bound_a_lat,
+      lngB: current.bound_b_lng,
+      latB: current.bound_b_lat
     };
 
     this.map = new Map({
@@ -136,11 +136,11 @@ class ViewModal extends Component {
   };
 
   render() {
-    const { viewed } = this.props;
+    const { current } = this.props.options;
 
     return (
       <Modal
-        open={this.props.modalOpen}
+        open={this.props.options.modalOpen}
         onClose={this.props.closeModal}
         onMount={this.handleMount}
         onUnmount={this.handleUnmount}
@@ -148,12 +148,12 @@ class ViewModal extends Component {
         basic
         // dimmer="blurring"
       >
-        {viewed ? (
+        {current ? (
           <Fragment>
-            <Modal.Header>{viewed.name}</Modal.Header>
+            <Modal.Header>{current.name}</Modal.Header>
             <Modal.Content>
               <Modal.Description>
-                {viewed.description}
+                {current.description}
                 <Divider />
               </Modal.Description>
               <Grid centered columns={2}>

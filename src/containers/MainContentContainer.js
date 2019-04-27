@@ -36,16 +36,15 @@ class MainContentContainer extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div>
         <SubMenu />
         <MainContent drives={this.props.drives} handleView={this.props.openModal} />
-        {/* <ViewModal
-          modalOpen={this.state.modalOpen}
-          viewed={this.state.viewed}
-          closeModal={this.closeModal}
-        /> */}
+        <ViewModal
+          options={this.props.map}
+          closeModal={this.props.closeModal}
+        />
       </div>
     );
   }
