@@ -42,7 +42,7 @@ class ViewModal extends Component {
                   <div
                     id="map-container"
                     className="map-modal-child"
-                    // ref={el => (this.mapContainer = el)}
+                    // ref={el => this.props.setContainer(el)}
                   />
                 </Grid.Column>
               </Grid>

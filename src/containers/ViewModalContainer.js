@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-import { closeModal, fetchDirections } from "../actions/mapActions";
+import { closeModal, setContainer, fetchDirections } from "../actions/mapActions";
 import ViewModal from "../components/ViewModal";
 
 class ViewModalContainer extends Component {
@@ -117,6 +117,7 @@ class ViewModalContainer extends Component {
         current={this.props.current}
         route={this.props.route}
         directions={this.props.directions}
+        setContainer={this.props.setContainer}
         handleMount={this.handleMount}
         handleUnmount={this.handleUnmount}
         handleClose={this.props.closeModal}
@@ -129,6 +130,7 @@ const mapStateToProps = state => {
   return {
     modalOpen: state.map.modalOpen,
     current: state.map.current,
+    container: state.map.container,
     route: state.map.route,
     directions: state.map.directions
   };
@@ -137,7 +139,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchDirections: bounds => fetchDirections(bounds)(dispatch),
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
+    setContainer: container => dispatch(setContainer(container))
   };
 };
 
