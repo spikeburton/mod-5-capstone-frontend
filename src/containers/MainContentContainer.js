@@ -6,6 +6,7 @@ import MainContent from "../components/MainContent";
 import ViewModal from "../components/ViewModal";
 
 import { fetchDrives } from "../actions/driveActions";
+import { openModal, closeModal } from "../actions/mapActions";
 
 class MainContentContainer extends Component {
   componentDidMount() {
