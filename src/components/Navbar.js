@@ -3,16 +3,18 @@ import { Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 
 const Navbar = props => {
+  const { active } = props
+
   return (
     <Menu inverted>
-      <Link to="/" className="item">
+      <Link to="/" className={active === "main" ? "item active" : "item"}>
         <div className="content">Home</div>
       </Link>
       <Menu.Menu position="right">
-        <Link to="/signup" className="item">
+        <Link to="/signup" className={active === "signup" ? "item active" : "item"}>
           <div className="content">Sign Up</div>
         </Link>
-        <Link to="/login" className="item">
+        <Link to="/login" className={active === "login" ? "item active" : "item"}>
           <div className="content">Log In</div>
         </Link>
       </Menu.Menu>
