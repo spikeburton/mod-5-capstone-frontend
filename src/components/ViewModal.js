@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Modal, Grid, Segment, List } from "semantic-ui-react";
+import { Modal, Grid, Segment, List, Divider } from "semantic-ui-react";
 import SaveButton from "./SaveButton";
 import CloseButton from "./CloseButton";
 import mapboxgl, { Map } from "mapbox-gl";
@@ -45,7 +45,7 @@ class ViewModal extends Component {
       )
         .then(response => response.json())
         .then(({ routes }) => {
-          this.setState({directions: routes[0].legs[0].steps})
+          this.setState({ directions: routes[0].legs[0].steps });
           this.drawRoute(routes);
           // console.log(routes[0].legs[0].steps);
         });
@@ -128,6 +128,13 @@ class ViewModal extends Component {
     }
   };
 
+  handleUnmount = () => {
+    this.setState({
+      directions: []
+    });
+    if (this.map) this.map.remove();
+  };
+
   render() {
     const { viewed } = this.props;
 
@@ -136,22 +143,28 @@ class ViewModal extends Component {
         open={this.props.modalOpen}
         onClose={this.props.closeModal}
         onMount={this.handleMount}
+        onUnmount={this.handleUnmount}
         closeIcon
-        // basic
-        dimmer="blurring"
+        basic
+        // dimmer="blurring"
       >
         {viewed ? (
           <Fragment>
             <Modal.Header>{viewed.name}</Modal.Header>
             <Modal.Content>
-              <Modal.Description>{viewed.description}</Modal.Description>
+              <Modal.Description>
+                {viewed.description}
+                <Divider />
+              </Modal.Description>
               <Grid centered columns={2}>
                 <Grid.Column>
                   {/* <div id="directions-container" className="map-modal-child"> */}
-                    {/* <p>Directions</p> */}
-                    <List celled>
-                      {this.state.directions.map((direction, i) => <DirectionListItem key={i} {...direction} />)}
-                    </List>
+                  {/* <p>Directions</p> */}
+                  <List relaxed divided inverted>
+                    {this.state.directions.map((direction, i) => (
+                      <DirectionListItem key={i} {...direction} />
+                    ))}
+                  </List>
                   {/* </div> */}
                 </Grid.Column>
                 <Grid.Column>
