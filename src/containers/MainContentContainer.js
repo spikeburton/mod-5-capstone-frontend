@@ -40,7 +40,7 @@ class MainContentContainer extends Component {
     return (
       <div>
         <SubMenu />
-        <MainContent drives={this.props.drives} handleView={this.handleView} />
+        <MainContent drives={this.props.drives} handleView={this.props.openModal} />
         {/* <ViewModal
           modalOpen={this.state.modalOpen}
           viewed={this.state.viewed}
