@@ -38,10 +38,9 @@ class ViewModal extends Component {
                   {/* </div> */}
                 </Grid.Column>
                 <Grid.Column>
-                  <div
-                    id="map-container"
-                    className="map-modal-child"
-                  />
+                  {/* THIS IS WHERE THE MAP LIVES */}
+                  <div id="map-container" />
+                  {/* INSIDE THIS DIV */}
                 </Grid.Column>
               </Grid>
             </Modal.Content>
