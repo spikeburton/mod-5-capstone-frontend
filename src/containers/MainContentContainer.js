@@ -8,39 +8,18 @@ import ViewModal from "../components/ViewModal";
 import { fetchDrives } from "../actions/driveActions";
 
 class MainContentContainer extends Component {
-  // state = {
-  //   drives: [],
-  //   modalOpen: false,
-  //   viewed: null
-  // };
-
-  // handleView = id => {
-  //   this.setState({
-  //     modalOpen: true,
-  //     viewed: this.state.drives.find(drive => drive.id === id)
-  //   });
-  // };
-
-  // closeModal = () => {
-  //   this.setState({
-  //     modalOpen: false,
-  //     viewed: null
-  //   });
-  // };
-
   componentDidMount() {
-    // fetch(`${API}/drives`)
-    //   .then(response => response.json())
-    //   .then(payload => this.setState({ drives: payload }));
     this.props.fetchDrives();
   }
 
   render() {
-    // console.log(this.props);
     return (
       <div>
         <SubMenu />
-        <MainContent drives={this.props.drives} handleView={this.props.openModal} />
+        <MainContent
+          drives={this.props.drives}
+          handleView={this.props.openModal}
+        />
         <ViewModal
           options={this.props.map}
           closeModal={this.props.closeModal}
