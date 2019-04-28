@@ -30,15 +30,15 @@ class ViewModal extends Component {
               <Grid centered columns={2}>
                 <Grid.Column>
                   <div id="directions-container">
-                  {this.props.directions.length > 0 ? (
-                    <List relaxed animated divided inverted>
-                      {this.props.directions.map((direction, i) => (
-                        <DirectionListItem key={i} {...direction} />
-                      ))}
-                    </List>
-                  ) : (
-                    <Loader>Loading</Loader>
-                  )}
+                    {this.props.directions.length > 0 ? (
+                      <List relaxed animated divided inverted>
+                        {this.props.directions.map((direction, i) => (
+                          <DirectionListItem key={i} {...direction} />
+                        ))}
+                      </List>
+                    ) : (
+                      <Loader>Loading</Loader>
+                    )}
                   </div>
                 </Grid.Column>
                 <Grid.Column>
