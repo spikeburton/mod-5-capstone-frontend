@@ -13,13 +13,25 @@ class DirectionListItem extends Component {
     let { distance } = this.props;
     // Convert meters to kilometers
     // ROUND to 2 decimal places: round((distance / 1000) * 100) / 100
-    distance = (distance >= 1000) ? `${Math.round(distance / 10) / 100} km` : `${distance} m`
+    distance =
+      distance >= 1000
+        ? `${Math.round(distance / 10) / 100} km`
+        : `${distance} m`;
 
     return (
-      <List.Item>
-        <Image avatar src={require(`../icons/png/light/${icon}.png`)} />
+      <List.Item
+        onMouseEnter={() => console.log("mouse enter")}
+        onMouseLeave={() => console.log("mouse leave")}
+      >
+        <Image
+          avatar
+          src={require(`../icons/png/light/${icon}.png`)}
+          verticalAlign="middle"
+        />
         <List.Content>
-          <List.Header>{this.props.maneuver.instruction}</List.Header>
+          <List.Header as="a" onClick={() => console.log(this.props)}>
+            {this.props.maneuver.instruction}
+          </List.Header>
           <List.Description>{distance}</List.Description>
         </List.Content>
       </List.Item>
