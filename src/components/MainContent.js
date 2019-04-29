@@ -3,6 +3,9 @@ import { Card } from "semantic-ui-react";
 import DriveCard from "./DriveCard";
 
 const MainContent = props => {
+  const { favorites } = props;
+  const driveIds = favorites.map(favorite => favorite.drive_id);
+
   return (
     <div id="main-content">
       <div id="main-content-group">
@@ -14,7 +17,11 @@ const MainContent = props => {
               handleView={props.handleView}
               handleSave={props.handleSave}
               handleUnsave={props.handleUnsave}
-              saved={props.favorites.includes(drive.id)}
+              saved={
+                driveIds.includes(drive.id)
+                  ? favorites.find(cur => cur.drive_id === drive.id)
+                  : false
+              }
             />
           ))}
         </Card.Group>

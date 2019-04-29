@@ -44,15 +44,12 @@ class MainContentContainer extends Component {
   }
 
   handleUnsave = id => {
-    fetch(`${API}/favorites`, {
+    fetch(`${API}/favorites/${id}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ drive_id: id })
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
     })
-    .then(response => response.json())
     .then(console.log)
   }
 
@@ -65,7 +62,7 @@ class MainContentContainer extends Component {
           handleView={this.props.openModal}
           handleSave={this.handleSave}
           handleUnsave={this.handleUnsave}
-          favorites={this.state.favorites.map(favorite => favorite.drive_id)}
+          favorites={this.state.favorites}
         />
         <ViewModalContainer />
       </div>
