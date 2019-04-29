@@ -21,7 +21,6 @@ class SignUp extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(e.target);
 
     fetch(`${API}/users`, {
       method: "POST",
@@ -34,8 +33,14 @@ class SignUp extends Component {
       .then(payload => {
         if (payload.errors) {
           this.setState({ ...this.state, errors: payload.errors });
+        } else {
+          // console.log(payload)
+          localStorage.setItem("token", payload.jwt)
+          this.props.history.push("/")
         }
       });
+
+    e.target.reset()
   };
 
   render() {
