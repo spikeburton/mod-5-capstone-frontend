@@ -33,7 +33,11 @@ class ViewModal extends Component {
                     {this.props.directions.length > 0 ? (
                       <List relaxed animated divided inverted>
                         {this.props.directions.map((direction, i) => (
-                          <DirectionListItem key={i} {...direction} />
+                          <DirectionListItem
+                            key={i}
+                            handleZoomToStep={this.props.handleZoomToStep}
+                            {...direction}
+                          />
                         ))}
                       </List>
                     ) : (

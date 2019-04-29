@@ -110,6 +110,18 @@ class ViewModalContainer extends Component {
     if (this.map) this.map.remove();
   };
 
+  handleZoomToStep = coords => {
+    // console.log(coords)
+    this.map.flyTo({
+      center: coords,
+      zoom: 14
+    })
+  }
+
+  handleMouseEnter = coords => {
+    console.log(coords)
+  }
+
   render() {
     return (
       <ViewModal
@@ -120,6 +132,7 @@ class ViewModalContainer extends Component {
         handleMount={this.handleMount}
         handleUnmount={this.handleUnmount}
         handleClose={this.props.closeModal}
+        handleZoomToStep={this.handleZoomToStep}
       />
     );
   }

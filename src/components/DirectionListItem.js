@@ -20,8 +20,8 @@ class DirectionListItem extends Component {
 
     return (
       <List.Item
-        onMouseEnter={() => console.log("mouse enter")}
-        onMouseLeave={() => console.log("mouse leave")}
+        // onMouseEnter={() => console.log("mouse enter")}
+        // onMouseLeave={() => console.log("mouse leave")}
       >
         <Image
           avatar
@@ -29,7 +29,12 @@ class DirectionListItem extends Component {
           verticalAlign="middle"
         />
         <List.Content>
-          <List.Header as="a" onClick={() => console.log(this.props)}>
+          <List.Header
+            as="a"
+            onClick={() =>
+              this.props.handleZoomToStep(this.props.maneuver.location)
+            }
+          >
             {this.props.maneuver.instruction}
           </List.Header>
           <List.Description>{distance}</List.Description>
