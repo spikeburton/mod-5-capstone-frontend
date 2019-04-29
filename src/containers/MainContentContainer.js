@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import SubMenu from "../components/SubMenu";
 import MainContent from "../components/MainContent";
-import ViewModal from "../components/ViewModal";
+import ViewModalContainer from "./ViewModalContainer";
 
 import { fetchDrives } from "../actions/driveActions";
 import { openModal } from "../actions/mapActions";
@@ -21,7 +21,7 @@ class MainContentContainer extends Component {
           drives={this.props.drives}
           handleView={this.props.openModal}
         />
-        <ViewModal />
+        <ViewModalContainer />
       </div>
     );
   }

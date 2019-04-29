@@ -1,8 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import { DIRECTIONS_API } from "../data";
 
-mapboxgl.accessToken =
-  "pk.eyJ1Ijoic3Bpa2VidXJ0b24iLCJhIjoiY2p0MDhsbmpuMDEwajQzbWp4Mnd4a2hneiJ9.hejKLROWCOdlcjV6W67qHw";
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
 export const openModal = current => {
   return { type: "OPEN_MODAL", current };
@@ -29,9 +28,6 @@ export const fetchDirections = bounds => {
           route: routes[0].geometry.coordinates,
           directions: routes[0].legs[0].steps
         });
-        // this.setState({ directions: routes[0].legs[0].steps });
-        // this.drawRoute(routes);
-        // console.log(routes[0].legs[0].steps);
       });
   };
 };
