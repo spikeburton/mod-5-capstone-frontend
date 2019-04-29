@@ -57,7 +57,15 @@ class MainContentContainer extends Component {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-    .then(console.log)
+    .then(() => {
+      const i = this.state.favorites.findIndex(cur => cur.id === id)
+      this.setState({
+        favorites: [
+          ...this.state.favorites.slice(0, i),
+          ...this.state.favorites.slice(i + 1)
+        ]
+      })
+    })
   }
 
   render() {
