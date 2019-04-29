@@ -8,7 +8,10 @@ export const favoritesReducer = (
     case "FETCH_FAVORITES":
       return { loading: false, data: action.payload }
     case "ADD_FAVORITE":
-      return { ...state, data: [...state.data, action.payload] }
+      return { loading: false, data: [...state.data, action.payload] }
+    case "REMOVE_FAVORITE":
+      const i = state.data.findIndex(cur => cur.id === action.id)
+      return { loading: false, data: [...state.data.slice(0, i), ...state.data.slice(i + 1)]}
     default:
       return state;
   }
