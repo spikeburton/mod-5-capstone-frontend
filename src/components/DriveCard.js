@@ -21,7 +21,7 @@ const DriveCard = props => {
       <Card.Content extra textAlign="center">
         <ViewButton handleView={props.handleView} current={drive} />
         {props.saved ? (
-          <UnsaveButton />
+          <UnsaveButton handleUnsave={props.handleUnsave} id={drive.id} />
         ) : (
           <SaveButton handleSave={props.handleSave} id={drive.id} />
         )}

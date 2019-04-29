@@ -13,6 +13,7 @@ const MainContent = props => {
               drive={drive}
               handleView={props.handleView}
               handleSave={props.handleSave}
+              handleUnsave={props.handleUnsave}
               saved={props.favorites.includes(drive.id)}
             />
           ))}
