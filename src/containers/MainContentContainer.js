@@ -40,7 +40,14 @@ class MainContentContainer extends Component {
       body: JSON.stringify({ drive_id: id })
     })
     .then(response => response.json())
-    .then(console.log)
+    .then(payload => {
+      this.setState({
+        favorites: [
+          ...this.state.favorites,
+          payload
+        ]
+      })
+    })
   }
 
   handleUnsave = id => {
