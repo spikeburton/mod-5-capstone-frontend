@@ -7,6 +7,12 @@ import { closeModal, fetchDirections } from "../actions/mapActions";
 import ViewModal from "../components/ViewModal";
 
 class ViewModalContainer extends Component {
+  /* ---
+  When the modal is mounted in the DOM, this is when the map is drawn.
+  A request is sent to the Directions API to grab the routing and directions
+  data using the bounds for the current drive.
+     --- */
+
   handleMount = () => {
     const { current } = this.props;
     const bounds = {
@@ -17,7 +23,7 @@ class ViewModalContainer extends Component {
     };
 
     this.map = new Map({
-      container: 'map-container',
+      container: "map-container",
       style: "mapbox://styles/mapbox/navigation-guidance-day-v2",
       center: [
         (bounds.lngA + bounds.lngB) / 2,
@@ -73,7 +79,7 @@ class ViewModalContainer extends Component {
     this.drawPoint([bounds.lngB, bounds.latB], "B");
   };
 
-  drawPoint = (coords, name, radius=9, color="#203834") => {
+  drawPoint = (coords, name, radius = 9, color = "#203834") => {
     const pointData = {
       type: "FeatureCollection",
       features: [
@@ -110,24 +116,34 @@ class ViewModalContainer extends Component {
     if (this.map) this.map.remove();
   };
 
+  /* ---
+  These methods handle events that happen in the view modal,
+  inside the list of direction steps.
+  Clicking on the step name zooms the map in to the coordinates
+  for that step.
+  When the mouse enters a list item, a point is drawn at the coordinates
+  for that step on the map.
+  When the mouse leaves that area, the point is removed from the map.
+     --- */
+
   handleZoomToStep = coords => {
     // console.log(coords)
     this.map.flyTo({
       center: coords,
       zoom: 14
-    })
-  }
+    });
+  };
 
   handleMouseEnter = coords => {
-    this.drawPoint(coords, "step", 6, "#008330")
-  }
+    this.drawPoint(coords, "step", 6, "#008330");
+  };
 
   handleMouseLeave = () => {
     if (this.map.getSource("step")) {
-      this.map.removeLayer("step")
-      this.map.removeSource("step")
+      this.map.removeLayer("step");
+      this.map.removeSource("step");
     }
-  }
+  };
 
   render() {
     return (
@@ -159,7 +175,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchDirections: bounds => fetchDirections(bounds)(dispatch),
-    closeModal: () => dispatch(closeModal()),
+    closeModal: () => dispatch(closeModal())
   };
 };
 
