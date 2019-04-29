@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Icon } from "semantic-ui-react";
 
-const SaveButton = () => {
+const SaveButton = props => {
   return (
-    <Button onClick={() => console.log("clicked")}>
+    <Button onClick={() => props.handleSave(props.id)}>
       <Icon name="heart" />
       Save
     </Button>
