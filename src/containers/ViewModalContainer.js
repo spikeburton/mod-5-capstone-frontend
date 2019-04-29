@@ -73,7 +73,7 @@ class ViewModalContainer extends Component {
     this.drawPoint([bounds.lngB, bounds.latB], "B");
   };
 
-  drawPoint = (coords, name) => {
+  drawPoint = (coords, name, radius=9, color="#203834") => {
     const pointData = {
       type: "FeatureCollection",
       features: [
@@ -99,8 +99,8 @@ class ViewModalContainer extends Component {
           data: pointData
         },
         paint: {
-          "circle-radius": 9,
-          "circle-color": "#203834"
+          "circle-radius": radius,
+          "circle-color": color
         }
       });
     }
@@ -120,6 +120,7 @@ class ViewModalContainer extends Component {
 
   handleMouseEnter = coords => {
     console.log(coords)
+    this.drawPoint(coords, "step", 6, "#008330")
   }
 
   render() {
