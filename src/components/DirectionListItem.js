@@ -18,9 +18,11 @@ class DirectionListItem extends Component {
         ? `${Math.round(distance / 10) / 100} km`
         : `${distance} m`;
 
+    const { location } = this.props.maneuver
+
     return (
       <List.Item
-        // onMouseEnter={() => console.log("mouse enter")}
+        onMouseEnter={() => this.props.handleMouseEnter(location)}
         // onMouseLeave={() => console.log("mouse leave")}
       >
         <Image
@@ -32,7 +34,7 @@ class DirectionListItem extends Component {
           <List.Header
             as="a"
             onClick={() =>
-              this.props.handleZoomToStep(this.props.maneuver.location)
+              this.props.handleZoomToStep(location)
             }
           >
             {this.props.maneuver.instruction}

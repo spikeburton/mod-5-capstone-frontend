@@ -133,6 +133,7 @@ class ViewModalContainer extends Component {
         handleUnmount={this.handleUnmount}
         handleClose={this.props.closeModal}
         handleZoomToStep={this.handleZoomToStep}
+        handleMouseEnter={this.handleMouseEnter}
       />
     );
   }
