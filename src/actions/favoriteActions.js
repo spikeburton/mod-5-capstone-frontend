@@ -10,6 +10,6 @@ export const fetchFavorites = () => {
       }
     })
     .then(response => response.json())
-    .then(payload => dispatch({ type: "FETCH_FAVORITES", payload }))
+    .then(payload => dispatch({ type: "FETCH_FAVORITES", payload: payload.user.favorites }))
   }
 }
