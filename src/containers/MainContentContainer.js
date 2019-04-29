@@ -10,8 +10,24 @@ import { openModal } from "../actions/mapActions";
 import { API } from "../data";
 
 class MainContentContainer extends Component {
+  state = {
+    favorites: []
+  }
+
   componentDidMount() {
     this.props.fetchDrives();
+    fetch(`${API}/profile`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }
+    })
+    .then(response => response.json())
+    .then(({ user }) => {
+      this.setState({
+        favorites: user.favorites
+      })
+    })
   }
 
   handleSave = id => {
@@ -24,6 +40,8 @@ class MainContentContainer extends Component {
       },
       body: JSON.stringify({ drive_id: id })
     })
+    .then(response => response.json())
+    .then(console.log)
   }
 
   render() {
