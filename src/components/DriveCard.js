@@ -2,9 +2,9 @@ import React from "react";
 import { Card, Image } from "semantic-ui-react";
 import SaveButton from "./SaveButton";
 import ViewButton from "./ViewButton";
+import UnsaveButton from "./UnsaveButton";
 
 const DriveCard = props => {
-  console.log(props.saved);
   const { drive } = props;
   return (
     <Card raised>
@@ -20,7 +20,9 @@ const DriveCard = props => {
       </Card.Content>
       <Card.Content extra textAlign="center">
         <ViewButton handleView={props.handleView} current={drive} />
-        {props.saved ? null : (
+        {props.saved ? (
+          <UnsaveButton />
+        ) : (
           <SaveButton handleSave={props.handleSave} id={drive.id} />
         )}
       </Card.Content>

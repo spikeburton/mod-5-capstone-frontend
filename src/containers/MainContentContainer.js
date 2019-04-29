@@ -44,7 +44,6 @@ class MainContentContainer extends Component {
   }
 
   render() {
-    // console.log("favorites: ", this.state.favorites.map(favorite => favorite.drive_id))
     return (
       <div>
         <SubMenu />
