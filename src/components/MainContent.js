@@ -13,6 +13,7 @@ const MainContent = props => {
               drive={drive}
               handleView={props.handleView}
               handleSave={props.handleSave}
+              saved={props.favorites.includes(drive.id)}
             />
           ))}
         </Card.Group>

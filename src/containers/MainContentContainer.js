@@ -31,7 +31,6 @@ class MainContentContainer extends Component {
   }
 
   handleSave = id => {
-    console.log(id)
     fetch(`${API}/favorites`, {
       method: "POST",
       headers: {
@@ -45,6 +44,7 @@ class MainContentContainer extends Component {
   }
 
   render() {
+    // console.log("favorites: ", this.state.favorites.map(favorite => favorite.drive_id))
     return (
       <div>
         <SubMenu />
@@ -52,6 +52,7 @@ class MainContentContainer extends Component {
           drives={this.props.drives}
           handleView={this.props.openModal}
           handleSave={this.handleSave}
+          favorites={this.state.favorites.map(favorite => favorite.drive_id)}
         />
         <ViewModalContainer />
       </div>
