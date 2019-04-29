@@ -6,6 +6,7 @@ import MainContent from "../components/MainContent";
 import ViewModalContainer from "./ViewModalContainer";
 
 import { fetchDrives } from "../actions/driveActions";
+import { fetchFavorites } from "../actions/favoriteActions";
 import { openModal } from "../actions/mapActions";
 import { API } from "../data";
 
@@ -16,18 +17,19 @@ class MainContentContainer extends Component {
 
   componentDidMount() {
     this.props.fetchDrives();
-    fetch(`${API}/profile`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      }
-    })
-    .then(response => response.json())
-    .then(({ user }) => {
-      this.setState({
-        favorites: user.favorites
-      })
-    })
+    this.props.fetchFavorites();
+    // fetch(`${API}/profile`, {
+    //   method: "GET",
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //   }
+    // })
+    // .then(response => response.json())
+    // .then(({ user }) => {
+    //   this.setState({
+    //     favorites: user.favorites
+    //   })
+    // })
   }
 
   handleSave = id => {
@@ -87,13 +89,15 @@ class MainContentContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    drives: state.drives.data
+    drives: state.drives.data,
+    favorites: state.favorites.data
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchDrives: () => fetchDrives()(dispatch),
+    fetchFavorites: () => fetchFavorites()(dispatch),
     openModal: current => dispatch(openModal(current))
   };
 };
