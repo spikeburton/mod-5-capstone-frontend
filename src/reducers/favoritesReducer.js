@@ -5,7 +5,7 @@ export const favoritesReducer = (
   switch (action.type) {
     case "LOADING_FAVORITES":
       return { ...state, loading: true }
-    case "FETCHING_FAVORITES":
+    case "FETCH_FAVORITES":
       return { loading: false, data: action.payload }
     default:
       return state;
