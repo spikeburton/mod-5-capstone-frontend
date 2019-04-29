@@ -5,7 +5,7 @@ const UnsaveButton = props => {
   return (
     <Button color="red" onClick={() => props.handleUnsave(props.id)}>
       <Icon name="heart outline" />
-      Save
+      Saved
     </Button>
   );
 };

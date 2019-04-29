@@ -5,7 +5,6 @@ import ViewButton from "./ViewButton";
 import UnsaveButton from "./UnsaveButton";
 
 const DriveCard = props => {
-  console.log(props.saved)
   const { drive } = props;
   return (
     <Card raised>
