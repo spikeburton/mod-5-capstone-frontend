@@ -44,6 +44,7 @@ class SignUp extends Component {
   };
 
   handleReset = () => {
+    // clear password information when form resets
     this.setState({
       password: "",
       password_confirmation: ""
