@@ -39,6 +39,7 @@ class Login extends Component {
         if (payload.errors) {
           this.setState({ errors: payload.errors });
         } else {
+          localStorage.setItem("username", payload.user.username);
           localStorage.setItem("token", payload.jwt);
           this.props.history.push("/");
         }
