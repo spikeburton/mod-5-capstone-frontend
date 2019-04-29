@@ -36,6 +36,7 @@ class ViewModal extends Component {
                           <DirectionListItem
                             key={i}
                             handleMouseEnter={this.props.handleMouseEnter}
+                            handleMouseLeave={this.props.handleMouseLeave}
                             handleZoomToStep={this.props.handleZoomToStep}
                             {...direction}
                           />

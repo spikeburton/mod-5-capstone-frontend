@@ -119,8 +119,14 @@ class ViewModalContainer extends Component {
   }
 
   handleMouseEnter = coords => {
-    console.log(coords)
     this.drawPoint(coords, "step", 6, "#008330")
+  }
+
+  handleMouseLeave = () => {
+    if (this.map.getSource("step")) {
+      this.map.removeLayer("step")
+      this.map.removeSource("step")
+    }
   }
 
   render() {
@@ -135,6 +141,7 @@ class ViewModalContainer extends Component {
         handleClose={this.props.closeModal}
         handleZoomToStep={this.handleZoomToStep}
         handleMouseEnter={this.handleMouseEnter}
+        handleMouseLeave={this.handleMouseLeave}
       />
     );
   }

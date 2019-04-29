@@ -23,7 +23,7 @@ class DirectionListItem extends Component {
     return (
       <List.Item
         onMouseEnter={() => this.props.handleMouseEnter(location)}
-        // onMouseLeave={() => console.log("mouse leave")}
+        onMouseLeave={() => this.props.handleMouseLeave()}
       >
         <Image
           avatar
