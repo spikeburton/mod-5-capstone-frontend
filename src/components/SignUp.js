@@ -34,13 +34,20 @@ class SignUp extends Component {
         if (payload.errors) {
           this.setState({ ...this.state, errors: payload.errors });
         } else {
-          // console.log(payload)
-          localStorage.setItem("token", payload.jwt)
-          this.props.history.push("/")
+          localStorage.setItem("username", payload.user.username);
+          localStorage.setItem("token", payload.jwt);
+          this.props.history.push("/");
         }
       });
 
-    e.target.reset()
+    e.target.reset();
+  };
+
+  handleReset = () => {
+    this.setState({
+      password: "",
+      password_confirmation: ""
+    })
   };
 
   render() {
@@ -53,7 +60,11 @@ class SignUp extends Component {
             header="Welcome!"
             content="Let's get some basic information:"
           />
-          <Form className="attached fluid segment" onSubmit={this.handleSubmit}>
+          <Form
+            className="attached fluid segment"
+            onSubmit={this.handleSubmit}
+            onReset={this.handleReset}
+          >
             <Form.Group widths="equal">
               <Form.Input
                 fluid
