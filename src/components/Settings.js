@@ -53,11 +53,33 @@ class Settings extends Component {
       });
   };
 
+  handleDelete = () => {
+    const confirmation = window.confirm(
+      "Are you sure? This action cannot be reversed!"
+    );
+    if (confirmation) {
+      fetch(`${API}/purge`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      }).then(response => {
+        if (response.ok) {
+          window.alert(
+            "We're sad to see you go! Your account has been deleted."
+          );
+          localStorage.clear();
+          this.props.history.push("/signup");
+        }
+      });
+    }
+  };
+
   render() {
     return (
       <Fragment>
         <Navbar active="settings" />
-        <Segment attached>
+        <Segment attached id="settings-container">
           <Grid columns="2" centered verticalAlign="middle">
             <Grid.Column>
               <Form
@@ -100,17 +122,21 @@ class Settings extends Component {
                 </Grid>
               </Form>
             </Grid.Column>
-            <Grid.Column textAlign="center">Hello</Grid.Column>
+            <Grid.Column textAlign="center">
+              <Button negative onClick={this.handleDelete}>
+                Delete Account
+              </Button>
+            </Grid.Column>
           </Grid>
+          {this.state.errors ? (
+            <Message
+              attached
+              error
+              header="There were errors with your submission:"
+              list={this.state.errors}
+            />
+          ) : null}
         </Segment>
-        {this.state.errors ? (
-          <Message
-            attached
-            error
-            header="There were errors with your submission:"
-            list={this.state.errors}
-          />
-        ) : null}
       </Fragment>
     );
   }
