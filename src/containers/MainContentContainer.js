@@ -28,6 +28,14 @@ class MainContentContainer extends Component {
   };
 
   render() {
+    let drives;
+    if (this.state.page === "favorites") {
+      const favorites = this.props.favorites.map(favorite => favorite.drive_id)
+      drives = this.props.drives.filter(drive => favorites.includes(drive.id))
+    } else {
+      drives = this.props.drives
+    }
+
     return (
       <div>
         <SubMenu
@@ -35,7 +43,7 @@ class MainContentContainer extends Component {
           handleMenuChange={this.handleMenuChange}
         />
         <MainContent
-          drives={this.props.drives}
+          drives={drives}
           handleView={this.props.openModal}
           handleSave={this.props.addFavorite}
           handleUnsave={this.props.removeFavorite}
