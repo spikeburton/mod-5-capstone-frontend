@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { API } from "../data";
-import { Segment, Grid, Form } from "semantic-ui-react";
+import { Segment, Grid, Form, Button } from "semantic-ui-react";
 import Navbar from "./Navbar";
 
 class Settings extends Component {
@@ -31,8 +31,8 @@ class Settings extends Component {
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -69,9 +69,16 @@ class Settings extends Component {
                   value={this.state.email}
                   onChange={this.handleChange}
                 />
+                <Grid textAlign="center">
+                  <Grid.Column>
+                    <Button color="black" type="submit">
+                      Update
+                    </Button>
+                  </Grid.Column>
+                </Grid>
               </Form>
             </Grid.Column>
-            <Grid.Column>Hello</Grid.Column>
+            <Grid.Column textAlign="center">Hello</Grid.Column>
           </Grid>
         </Segment>
       </Fragment>
