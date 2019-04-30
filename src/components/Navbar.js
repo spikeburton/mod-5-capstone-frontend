@@ -14,6 +14,12 @@ const Navbar = props => {
         {localStorage.getItem("token") ? (
           <Fragment>
             <Link
+              to="/settings"
+              className={active === "settings" ? "item active" : "item"}
+            >
+              <div className="content">Settings</div>
+            </Link>
+            <Link
               to="/login"
               className="item"
               onClick={() => localStorage.clear()}
