@@ -34,6 +34,20 @@ class Settings extends Component {
     });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+
+    fetch(`${API}/users`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state)
+    })
+    .then(console.log)
+  };
+
   render() {
     return (
       <Fragment>
@@ -41,7 +55,10 @@ class Settings extends Component {
         <Segment>
           <Grid columns="2" centered verticalAlign="middle">
             <Grid.Column>
-              <Form>
+              <Form
+                className="attached fluid segment"
+                onSubmit={this.handleSubmit}
+              >
                 <Form.Input
                   fluid
                   type="text"
