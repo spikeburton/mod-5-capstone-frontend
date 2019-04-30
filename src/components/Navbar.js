@@ -13,7 +13,10 @@ const Navbar = props => {
       <Menu.Menu position="right">
         {localStorage.getItem("token") ? (
           <Fragment>
-            <Link to="/settings" className="item">
+            <Link
+              to="/settings"
+              className={active === "settings" ? "item active" : "item"}
+            >
               <div className="content">Settings</div>
             </Link>
             <Link
