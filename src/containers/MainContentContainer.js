@@ -14,15 +14,26 @@ import {
 import { openModal } from "../actions/mapActions";
 
 class MainContentContainer extends Component {
+  state = {
+    page: "all"
+  };
+
   componentDidMount() {
     this.props.fetchDrives();
     this.props.fetchFavorites();
   }
 
+  handleMenuChange = page => {
+    this.setState({ page });
+  };
+
   render() {
     return (
       <div>
-        <SubMenu />
+        <SubMenu
+          active={this.state.page}
+          handleMenuChange={this.handleMenuChange}
+        />
         <MainContent
           drives={this.props.drives}
           handleView={this.props.openModal}
