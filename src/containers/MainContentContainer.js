@@ -14,17 +14,36 @@ import {
 import { openModal } from "../actions/mapActions";
 
 class MainContentContainer extends Component {
+  state = {
+    page: "all"
+  };
+
   componentDidMount() {
     this.props.fetchDrives();
     this.props.fetchFavorites();
   }
 
+  handleMenuChange = page => {
+    this.setState({ page });
+  };
+
   render() {
+    let drives;
+    if (this.state.page === "favorites") {
+      const favorites = this.props.favorites.map(favorite => favorite.drive_id)
+      drives = this.props.drives.filter(drive => favorites.includes(drive.id))
+    } else {
+      drives = this.props.drives
+    }
+
     return (
       <div>
-        <SubMenu />
+        <SubMenu
+          active={this.state.page}
+          handleMenuChange={this.handleMenuChange}
+        />
         <MainContent
-          drives={this.props.drives}
+          drives={drives}
           handleView={this.props.openModal}
           handleSave={this.props.addFavorite}
           handleUnsave={this.props.removeFavorite}
