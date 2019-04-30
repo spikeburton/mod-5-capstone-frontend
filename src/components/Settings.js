@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { API } from "../data";
-import { Segment, Grid, Form, Button } from "semantic-ui-react";
+import { Segment, Grid, Form, Button, Message } from "semantic-ui-react";
 import Navbar from "./Navbar";
 
 class Settings extends Component {
@@ -37,22 +37,27 @@ class Settings extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    fetch(`${API}/users`, {
+    fetch(`${API}/settings`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify(this.state)
     })
-    .then(console.log)
+      .then(response => response.json())
+      .then(json => {
+        if (json.errors) this.setState({ errors: json.errors });
+        else this.props.history.push("/");
+      });
   };
 
   render() {
     return (
       <Fragment>
         <Navbar active="settings" />
-        <Segment>
+        <Segment attached>
           <Grid columns="2" centered verticalAlign="middle">
             <Grid.Column>
               <Form
@@ -79,7 +84,7 @@ class Settings extends Component {
                 />
                 <Form.Input
                   fluid
-                  type="text"
+                  type="email"
                   label="Email"
                   placeholder="Email"
                   name="email"
@@ -98,6 +103,14 @@ class Settings extends Component {
             <Grid.Column textAlign="center">Hello</Grid.Column>
           </Grid>
         </Segment>
+        {this.state.errors ? (
+          <Message
+            attached
+            error
+            header="There were errors with your submission:"
+            list={this.state.errors}
+          />
+        ) : null}
       </Fragment>
     );
   }
