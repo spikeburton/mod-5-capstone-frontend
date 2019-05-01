@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TopbarContainer from "./TopbarContainer";
 import MainContentContainer from "./MainContentContainer";
-import NoUserContentContainer from "../components/NoUserContentContainer";
+import NoUserContentContainer from "./NoUserContentContainer";
 
 class MainContainer extends Component {
   render() {
