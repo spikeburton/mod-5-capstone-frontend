@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Modal, Grid, Segment, List, Divider, Loader } from "semantic-ui-react";
 
 import SaveButton from "./SaveButton";
+import UnsaveButton from "./UnsaveButton";
 import CloseButton from "./CloseButton";
 import DirectionListItem from "./DirectionListItem";
 
@@ -56,7 +57,17 @@ class ViewModal extends Component {
             </Modal.Content>
             <Modal.Actions>
               <CloseButton />
-              <SaveButton handleSave={this.props.handleSave} id={current.id} />
+              {this.props.saved ? (
+                <UnsaveButton
+                  handleUnsave={this.props.handleUnsave}
+                  id={this.props.saved.id}
+                />
+              ) : (
+                <SaveButton
+                  handleSave={this.props.handleSave}
+                  id={current.id}
+                />
+              )}
             </Modal.Actions>
           </Fragment>
         ) : (
