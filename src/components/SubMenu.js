@@ -13,12 +13,14 @@ const SubMenu = props => {
         >
           All
         </Menu.Item>
-        <Menu.Item
-          active={active === "favorites"}
-          onClick={() => props.handleMenuChange("favorites")}
-        >
-          Favorites
-        </Menu.Item>
+        {localStorage.getItem("token") ? (
+          <Menu.Item
+            active={active === "favorites"}
+            onClick={() => props.handleMenuChange("favorites")}
+          >
+            Favorites
+          </Menu.Item>
+        ) : null}
       </Menu>
       {/* </Segment> */}
     </div>
