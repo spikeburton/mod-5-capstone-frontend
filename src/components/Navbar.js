@@ -6,7 +6,7 @@ const Navbar = props => {
   const { active } = props;
 
   return (
-    <Menu inverted>
+    <Menu secondary>
       <Link to="/" className={active === "main" ? "item active" : "item"}>
         <div className="content">Home</div>
       </Link>
@@ -19,11 +19,7 @@ const Navbar = props => {
             >
               <div className="content">Settings</div>
             </Link>
-            <Link
-              to="/"
-              className="item"
-              onClick={() => localStorage.clear()}
-            >
+            <Link to="/" className="item" onClick={() => localStorage.clear()}>
               <div className="content">Log Out</div>
             </Link>
           </Fragment>

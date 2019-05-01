@@ -21,11 +21,11 @@ const Topbar = props => {
             <p>Placeholder content</p>
           </Grid.Column>
           <Grid.Column>
-            <img
+            {/* <img
               id="bridge-img"
               src={require("../images/bridge.jpg")}
               alt="bridge"
-            />
+            /> */}
           </Grid.Column>
         </Grid>
       </Grid.Column>

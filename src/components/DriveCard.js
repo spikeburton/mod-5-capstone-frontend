@@ -9,9 +9,9 @@ const DriveCard = props => {
   return (
     <Card raised>
       <Image
-        src={require("../images/bridge.jpg")}
+        src={require("../images/fence.jpg")}
         alt="bridge"
-        style={{ height: "200px" }}
+        style={{ height: "200px", width: "100%" }}
       />
       <Card.Content>
         <Card.Header>{drive.name}</Card.Header>

@@ -1,16 +1,18 @@
-import React, { Component } from 'react'
-import Navbar from '../components/Navbar'
-import Topbar from '../components/Topbar';
+import React, { Component } from "react";
+import Navbar from "../components/Navbar";
+import Topbar from "../components/Topbar";
 
 class TopbarContainer extends Component {
   render() {
     return (
-      <div id="topbar-container">
+      <div>
+        <div id="topbar-container">
         <Navbar active="main" />
-        <Topbar />
+          <Topbar />
+        </div>
       </div>
-    )
+    );
   }
 }
 
-export default TopbarContainer
+export default TopbarContainer;
