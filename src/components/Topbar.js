@@ -8,8 +8,11 @@ const Topbar = props => {
       <Grid.Column>
         <div id="topbar">
           <h1>Take a Scenic Drive.</h1>
-          <p>Choose from a list of scenic byways in your state, or add your own route. See what others have been upto.</p>
-          <SignupButton />
+          <p>
+            Choose from a list of scenic byways in your state, or add your own
+            route. See what others have been upto.
+          </p>
+          {localStorage.getItem("token") ? null : <SignupButton />}
         </div>
       </Grid.Column>
       <Grid.Column>

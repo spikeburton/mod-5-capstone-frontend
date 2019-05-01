@@ -56,7 +56,7 @@ class ViewModal extends Component {
             </Modal.Content>
             <Modal.Actions>
               <CloseButton />
-              <SaveButton />
+              <SaveButton handleSave={this.props.handleSave} id={current.id} />
             </Modal.Actions>
           </Fragment>
         ) : (

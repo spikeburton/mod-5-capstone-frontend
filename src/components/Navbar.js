@@ -20,7 +20,7 @@ const Navbar = props => {
               <div className="content">Settings</div>
             </Link>
             <Link
-              to="/login"
+              to="/"
               className="item"
               onClick={() => localStorage.clear()}
             >
