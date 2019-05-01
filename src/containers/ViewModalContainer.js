@@ -147,12 +147,16 @@ class ViewModalContainer extends Component {
   };
 
   render() {
+    const favorites = this.props.favorites.map(favorite => favorite.drive_id)
+    const saved = this.props.current ? favorites.includes(this.props.current.id) : false
+
     return (
       <ViewModal
         open={this.props.modalOpen}
         current={this.props.current}
         route={this.props.route}
         directions={this.props.directions}
+        saved={saved ? this.props.favorites.find(f => f.drive_id === this.props.current.id) : false}
         handleMount={this.handleMount}
         handleUnmount={this.handleUnmount}
         handleClose={this.props.closeModal}
@@ -171,7 +175,8 @@ const mapStateToProps = state => {
     modalOpen: state.map.modalOpen,
     current: state.map.current,
     route: state.map.route,
-    directions: state.map.directions
+    directions: state.map.directions,
+    favorites: state.favorites.data
   };
 };
 
