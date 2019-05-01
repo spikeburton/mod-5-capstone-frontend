@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { fetchDrives } from "../actions/driveActions";
 import SubMenu from "../components/SubMenu";
+import NoUserContent from "../components/NoUserContent";
 
 class NoUserContentContainer extends Component {
   state = {
@@ -24,6 +25,7 @@ class NoUserContentContainer extends Component {
           active={this.state.page}
           handleMenuChange={this.handleMenuChange}
         />
+        <NoUserContent drives={this.props.drives} />
       </div>
     );
   }
