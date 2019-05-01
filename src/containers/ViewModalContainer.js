@@ -4,6 +4,7 @@ import { Map } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import { closeModal, fetchDirections } from "../actions/mapActions";
+import { addFavorite, removeFavorite } from "../actions/favoriteActions";
 import ViewModal from "../components/ViewModal";
 
 class ViewModalContainer extends Component {
@@ -155,6 +156,8 @@ class ViewModalContainer extends Component {
         handleMount={this.handleMount}
         handleUnmount={this.handleUnmount}
         handleClose={this.props.closeModal}
+        handleSave={this.props.handleSave}
+        handleUnsave={this.props.handleUnsave}
         handleZoomToStep={this.handleZoomToStep}
         handleMouseEnter={this.handleMouseEnter}
         handleMouseLeave={this.handleMouseLeave}
@@ -175,7 +178,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchDirections: bounds => fetchDirections(bounds)(dispatch),
-    closeModal: () => dispatch(closeModal())
+    closeModal: () => dispatch(closeModal()),
+    handleSave: id => addFavorite(id)(dispatch),
+    handleUnsave: id => removeFavorite(id)(dispatch)
   };
 };
 
