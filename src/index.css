@@ -23,6 +23,7 @@ body {
   /* background: #325B51; */
   /* background: #203d36; */
   background: #aab4b2;
+  /* background: #cddd3f; */
   /* background: black; */
   /* height: 250px; */
   padding-bottom: 20px;
@@ -90,4 +91,12 @@ body {
 #settings-container {
   margin: 40px auto 0;
   width: 60%;
+}
+
+#woman {
+  background-image: url("../src/images/woman-pointing.jpg");
+  background-size: cover;
+  height: 100%;
+  margin-top: 40px;
+  padding: 40px 20px;
 }
