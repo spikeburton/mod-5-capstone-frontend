@@ -56,7 +56,7 @@ class ViewModal extends Component {
               </Grid>
             </Modal.Content>
             <Modal.Actions>
-              <CloseButton />
+              <CloseButton handleClose={this.props.handleClose} />
               {this.props.saved ? (
                 <UnsaveButton
                   handleUnsave={this.props.handleUnsave}

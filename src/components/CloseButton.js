@@ -3,7 +3,7 @@ import { Button, Icon } from "semantic-ui-react";
 
 const CloseButton = props => {
   return (
-    <Button>
+    <Button onClick={() => props.handleClose()}>
       <Icon name="close" />
       Close
     </Button>
