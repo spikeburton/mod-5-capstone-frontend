@@ -28,7 +28,7 @@ class ViewModal extends Component {
                 {current.description}
                 <Divider />
               </Modal.Description>
-              <Grid centered columns={2}>
+              <Grid centered columns={2} stackable reversed="mobile">
                 <Grid.Column>
                   <div id="directions-container">
                     {this.props.directions.length > 0 ? (
