@@ -5,7 +5,8 @@ import {
   Grid,
   Button,
   Message,
-  Container
+  Container,
+  Header
 } from "semantic-ui-react";
 import { API } from "../data";
 import Navbar from "./Navbar";
@@ -72,9 +73,6 @@ class SignUp extends Component {
             style={{ height: "100%" }}
           >
             <Grid.Row>
-              <Grid.Column width={8}>
-                <div style={{ background: "red", height: "100%" }} />
-              </Grid.Column>
               <Grid.Column width={8} verticalAlign="middle">
                 {/* <Message
             attached
@@ -82,6 +80,8 @@ class SignUp extends Component {
             content="Let's get some basic information:"
           /> */}
                 <Container>
+                  <Header size="huge">Sign Up</Header>
+                  <br />
                   <Form
                     // className="attached fluid segment"
                     onSubmit={this.handleSubmit}
@@ -155,10 +155,11 @@ class SignUp extends Component {
                     </Form.Group>
                     {/* <Grid textAlign="center">
                       <Grid.Column> */}
-                        <Button color="black" type="submit">
-                          Sign Up
-                        </Button>
-                      {/* </Grid.Column>
+                    <br />
+                    <Button color="black" type="submit">
+                      Sign Up
+                    </Button>
+                    {/* </Grid.Column>
                     </Grid> */}
                   </Form>
                   {this.state.errors ? (
@@ -171,6 +172,11 @@ class SignUp extends Component {
                   ) : null}
                   {/* </Segment> */}
                 </Container>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <div style={{ background: "#8dd8b9", height: "100%" }}>
+                  <Header size="huge">Welcome</Header>
+                </div>
               </Grid.Column>
             </Grid.Row>
           </Grid>
