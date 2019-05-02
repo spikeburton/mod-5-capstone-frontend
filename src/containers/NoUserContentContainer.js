@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { fetchDrives } from "../actions/driveActions";
-import SubMenu from "../components/SubMenu";
-import NoUserContent from "../components/NoUserContent";
 import { Grid } from "semantic-ui-react";
 
 import { Map } from "mapbox-gl";
