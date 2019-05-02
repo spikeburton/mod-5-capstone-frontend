@@ -1,6 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { API } from "../data";
-import { Segment, Grid, Form, Button, Message } from "semantic-ui-react";
+import {
+  Segment,
+  Grid,
+  Form,
+  Button,
+  Message,
+  Container
+} from "semantic-ui-react";
 import Navbar from "./Navbar";
 
 class Settings extends Component {
@@ -80,47 +87,49 @@ class Settings extends Component {
       <Fragment>
         <Navbar active="settings" />
         <Segment attached id="settings-container">
-          <Grid columns="2" centered verticalAlign="middle">
+          <Grid columns="2" verticalAlign="middle" stackable>
             <Grid.Column>
-              <Form
-                className="attached fluid segment"
-                onSubmit={this.handleSubmit}
-              >
-                <Form.Input
-                  fluid
-                  type="text"
-                  label="First Name"
-                  placeholder="First Name"
-                  name="first_name"
-                  value={this.state.first_name}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  type="text"
-                  label="Last Name"
-                  placeholder="Last Name"
-                  name="last_name"
-                  value={this.state.last_name}
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  type="email"
-                  label="Email"
-                  placeholder="Email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-                <Grid textAlign="center">
-                  <Grid.Column>
-                    <Button color="black" type="submit">
-                      Update
-                    </Button>
-                  </Grid.Column>
-                </Grid>
-              </Form>
+              <Container>
+                <Form
+                  // className="attached fluid segment"
+                  onSubmit={this.handleSubmit}
+                >
+                  <Form.Input
+                    fluid
+                    type="text"
+                    label="First Name"
+                    placeholder="First Name"
+                    name="first_name"
+                    value={this.state.first_name}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    fluid
+                    type="text"
+                    label="Last Name"
+                    placeholder="Last Name"
+                    name="last_name"
+                    value={this.state.last_name}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Input
+                    fluid
+                    type="email"
+                    label="Email"
+                    placeholder="Email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                  <Grid textAlign="center">
+                    <Grid.Column>
+                      <Button color="black" type="submit">
+                        Update
+                      </Button>
+                    </Grid.Column>
+                  </Grid>
+                </Form>
+              </Container>
             </Grid.Column>
             <Grid.Column textAlign="center">
               <Button negative onClick={this.handleDelete}>
@@ -130,7 +139,7 @@ class Settings extends Component {
           </Grid>
           {this.state.errors ? (
             <Message
-              attached
+              // attached
               error
               header="There were errors with your submission:"
               list={this.state.errors}

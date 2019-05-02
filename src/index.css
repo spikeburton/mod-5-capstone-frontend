@@ -51,11 +51,6 @@ body {
   width: 200px;
 }
 
-#sub-menu {
-  /* background: #c7b7b7; */
-  /* background: #3d3737; */
-}
-
 #main-content {
   /* margin: 0 auto; */
   padding: 20px;
@@ -86,12 +81,6 @@ body {
   width: 60%;
 }
 
-#login-message {
-  /* margin: 0 auto; */
-  /* width: 80%; */
-  /* text-align: center; */
-}
-
 #signup-container {
   margin: 40px auto 0;
   width: 60%;
@@ -99,7 +88,7 @@ body {
 
 #settings-container {
   margin: 40px auto 0;
-  width: 60%;
+  max-width: 600px;
 }
 
 #woman {
