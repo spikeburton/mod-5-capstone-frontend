@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Image } from "semantic-ui-react";
 import SignupButton from "./SignupButton";
 
 const Topbar = props => {
@@ -18,14 +18,12 @@ const Topbar = props => {
       <Grid.Column>
         <Grid columns={2} centered>
           <Grid.Column>
-            <p>Placeholder content</p>
+            <Image size="medium" src={require("../images/tesla2.png")} />
           </Grid.Column>
           <Grid.Column>
-            <img
-              id="bridge-img"
-              src={require("../images/bridge.jpg")}
-              alt="bridge"
-            />
+            <div style={{ color: "white", textAlign: "justify" }}>
+              <p>Placeholder content</p>
+            </div>
           </Grid.Column>
         </Grid>
       </Grid.Column>

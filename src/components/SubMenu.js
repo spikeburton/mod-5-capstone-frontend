@@ -5,8 +5,7 @@ const SubMenu = props => {
   const { active } = props;
   return (
     <div id="sub-menu" style={{ padding: "0 60px" }}>
-      {/* <Segment inverted> */}
-      <Menu inverted pointing secondary>
+      <Menu pointing secondary>
         <Menu.Item
           active={active === "all"}
           onClick={() => props.handleMenuChange("all")}
@@ -22,7 +21,6 @@ const SubMenu = props => {
           </Menu.Item>
         ) : null}
       </Menu>
-      {/* </Segment> */}
     </div>
   );
 };

@@ -13,20 +13,37 @@ body {
 #app-container {
   /* background: #eee; */
   margin: 0 auto;
-  /* width: 800px; */
+  max-width: 1100px;
   /* height: 600px; */
   /* border: 1px solid black; */
 }
 
 #topbar-container {
-  background: #e6dede;
+  /* background: #e6dede; */
   /* background: #325B51; */
-  height: 250px;
+  /* background: #203d36; */
+  /* background: #aab4b2; */
+  /* background: #cddd3f; */
+  /* background: #e0ee5f; */
+  /* background: #e9e65b; */
+  /* background: #a9e49a; */
+  /* background: #8dd8b9; */
+  /* background: #2fcab5; */
+  /* background: #5dafd4; */
+  /* background: #6483d6; */
+  /* background: #6761c9; */
+  /* background: #ab6dcf; */
+  /* background: black; */
+  /* height: 250px; */
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  /* margin-top: 10px; */
 }
 
 #topbar {
   padding-top: 20px;
   padding-left: 60px;
+  color: white;
 }
 
 #bridge-img {
@@ -36,7 +53,7 @@ body {
 
 #sub-menu {
   /* background: #c7b7b7; */
-  background: #3d3737;
+  /* background: #3d3737; */
 }
 
 #main-content {
@@ -83,4 +100,12 @@ body {
 #settings-container {
   margin: 40px auto 0;
   width: 60%;
+}
+
+#woman {
+  background-image: url("../src/images/woman-pointing.jpg");
+  background-size: cover;
+  height: 100%;
+  margin-top: 40px;
+  padding: 40px 20px;
 }
