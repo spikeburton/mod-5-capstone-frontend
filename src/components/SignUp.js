@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import {
-  Segment,
   Form,
   Grid,
   Button,
@@ -63,7 +62,6 @@ class SignUp extends Component {
     return (
       <Fragment>
         <Navbar active="signup" />
-        {/* <Segment id="signup-container"> */}
         <div style={{ height: "600px" }}>
           <Grid
             divided
@@ -170,7 +168,6 @@ class SignUp extends Component {
                       list={this.state.errors}
                     />
                   ) : null}
-                  {/* </Segment> */}
                 </Container>
               </Grid.Column>
               <Grid.Column width={8}>

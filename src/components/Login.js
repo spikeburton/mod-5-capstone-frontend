@@ -70,7 +70,6 @@ class Login extends Component {
             columns={2}
             style={{ height: "100%" }}
           >
-            {/* <Segment id="login-container"> */}
             <Grid.Row>
               <Grid.Column width={6} verticalAlign="middle">
                 {/* <Message
@@ -83,7 +82,6 @@ class Login extends Component {
                   {/* <h1 style={{ marginBottom: "30px" }}>Log In</h1> */}
                   <Header size="huge">Log In</Header>
                   <br />
-                  {/* <Image size="medium" src={require("../images/tesla4.png")} /> */}
                   <Form
                     // className="attached fluid segment"
                     onSubmit={this.handleSubmit}
@@ -133,7 +131,6 @@ class Login extends Component {
                       list={this.state.errors}
                     />
                   ) : null}
-                  {/* </Segment> */}
                 </Container>
               </Grid.Column>
               <Grid.Column width={10}>
