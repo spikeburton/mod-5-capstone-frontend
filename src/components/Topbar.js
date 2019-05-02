@@ -22,7 +22,7 @@ const Topbar = props => {
           </Grid.Column>
           <Grid.Column>
             <div style={{ color: "white", textAlign: "justify" }}>
-              <p>Placeholder content</p>
+              <p></p>
             </div>
           </Grid.Column>
         </Grid>
