@@ -2,12 +2,12 @@ import React, { Component, Fragment } from "react";
 import {
   Form,
   Button,
-  Segment,
   Message,
-  GridColumn,
-  Grid
+  Grid,
+  Container,
+  Header
 } from "semantic-ui-react";
-import Navbar from './Navbar'
+import Navbar from "./Navbar";
 import { API } from "../data";
 
 class Login extends Component {
@@ -59,57 +59,91 @@ class Login extends Component {
     return (
       <Fragment>
         <Navbar active="login" />
-        <Segment id="login-container">
-          <Message
-            id="login-message"
-            attached
-            header="Welcome!"
-            content="Please Log In"
-          />
-          <Form
-            className="attached fluid segment"
-            onSubmit={this.handleSubmit}
-            onReset={this.handleReset}
+        <div style={{ height: "600px" }}>
+          <Grid
+            // relaxed
+            divided
+            textAlign="center"
+            stackable
+            // verticalAlign="middle"
+            // centered
+            columns={2}
+            style={{ height: "100%" }}
           >
-            <Form.Input
-              fluid
-              icon="user"
-              iconPosition="left"
-              label="Username"
-              placeholder="Username"
-              type="text"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              fluid
-              icon="lock"
-              iconPosition="left"
-              label="Password"
-              placeholder="Password"
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-            <Grid textAlign="center">
-              <GridColumn>
-                <Button color="black" type="submit">
-                  Login
-                </Button>
-              </GridColumn>
-            </Grid>
-          </Form>
-          {this.state.errors ? (
-            <Message
+            {/* <Segment id="login-container"> */}
+            <Grid.Row>
+              <Grid.Column width={6} verticalAlign="middle">
+                {/* <Message
+              id="login-message"
               attached
-              error
-              header="There were errors with your submission:"
-              list={this.state.errors}
-            />
-          ) : null}
-        </Segment>
+              header="Welcome!"
+              content="Please Log In"
+            /> */}
+                <Container>
+                  {/* <h1 style={{ marginBottom: "30px" }}>Log In</h1> */}
+                  <Header size="huge">Log In</Header>
+                  <br />
+                  {/* <Image size="medium" src={require("../images/tesla4.png")} /> */}
+                  <Form
+                    // className="attached fluid segment"
+                    onSubmit={this.handleSubmit}
+                    onReset={this.handleReset}
+                  >
+                    <Form.Input
+                      // fluid
+                      icon="user"
+                      iconPosition="left"
+                      label="Username"
+                      placeholder="Username"
+                      type="text"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.handleChange}
+                    />
+                    <Form.Input
+                      // fluid
+                      icon="lock"
+                      iconPosition="left"
+                      label="Password"
+                      placeholder="Password"
+                      type="password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                    />
+                    {/* <Grid textAlign="center">
+                <GridColumn> */}
+                    <br />
+                    <Button
+                      fluid
+                      color="black"
+                      type="submit"
+                      // style={{ marginTop: "15px" }}
+                    >
+                      Login
+                    </Button>
+                    {/* </GridColumn>
+              </Grid> */}
+                  </Form>
+                  {this.state.errors ? (
+                    <Message
+                      // attached
+                      error
+                      header="There were errors with your submission:"
+                      list={this.state.errors}
+                    />
+                  ) : null}
+                  {/* </Segment> */}
+                </Container>
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <div style={{ background: "#2fcab5", height: "100%" }}>
+                  <Header size="huge">Welcome Back</Header>
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </div>
       </Fragment>
     );
   }
