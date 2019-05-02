@@ -52,16 +52,14 @@ class NoUserContentContainer extends Component {
           active={this.state.page}
           handleMenuChange={this.handleMenuChange}
         /> */}
-        {/* <NoUserContent drives={this.props.drives} /> */}
         <div id="woman">
           <h1>Welcome!</h1>
           <Grid columns={2} centered relaxed stackable>
             <Grid.Column>
               <p style={{ color: "white" }}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                adipisci corporis aspernatur dolore ab quod sint consectetur
-                illum nostrum hic! Earum cumque possimus officia labore
-                praesentium nostrum esse culpa facere?
+                Choose a drive to go on, and we'll give you turn-by-turn directions
+                from start to finish. Add a drive you like to your list of
+                favorites, and return later at any time.
               </p>
               {/* <Image size="medium" src={require("../images/fence.jpg")} /> */}
               <div
