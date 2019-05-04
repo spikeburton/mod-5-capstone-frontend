@@ -86,7 +86,12 @@ class Settings extends Component {
   handleUpload = () => {
     const file = this.avatarInput.files[0];
 
-    fetch(`${API}/sign_s3`)
+    fetch(`${API}/signed_s3`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
       .then(response => response.json())
       .then(data => {
         const url = data.url;
