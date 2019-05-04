@@ -96,14 +96,11 @@ class Settings extends Component {
       .then(data => {
         const url = data.url;
         const formData = new FormData();
-        // console.log(`url: ${url}, form data: `, formData)
-        // console.log(data.form_data)
-        for (let i in data.form_data) {
-          formData.append(i, data.form_data[i]);
-        }
+
+        Object.keys(data.form_data).forEach(key =>
+          formData.append(key, data.form_data[key])
+        );
         formData.append("file", file);
-        // formData.append("Content-Type", file.type);
-        // formData.append("Content-Type", "multipart/form-data");
 
         fetch(url, {
           method: "POST",
@@ -164,8 +161,16 @@ class Settings extends Component {
               </Container>
             </Grid.Column>
             <Grid.Column textAlign="center">
-              <input type="file" name="avatar_file" hidden ref={el => (this.avatarInput = el)} onChange={this.handleChange} />
-              {this.state.avatar_file ? <Message header={this.avatarInput.files[0].name} /> : null}
+              <input
+                type="file"
+                name="avatar_file"
+                hidden
+                ref={el => (this.avatarInput = el)}
+                onChange={this.handleChange}
+              />
+              {this.state.avatar_file ? (
+                <Message header={this.avatarInput.files[0].name} />
+              ) : null}
               <Button
                 content="Choose File"
                 icon="image"
