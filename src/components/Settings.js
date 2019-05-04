@@ -14,7 +14,8 @@ class Settings extends Component {
   state = {
     first_name: "",
     last_name: "",
-    email: ""
+    email: "",
+    avatar_file: ""
   };
 
   componentDidMount() {
@@ -82,6 +83,32 @@ class Settings extends Component {
     }
   };
 
+  handleUpload = () => {
+    const file = this.avatarInput.files[0];
+
+    fetch(`${API}/sign_s3`)
+      .then(response => response.json())
+      .then(data => {
+        const url = data.url;
+        const formData = new FormData();
+        // console.log(`url: ${url}, form data: `, formData)
+        // console.log(data.form_data)
+        for (let i in data.form_data) {
+          formData.append(i, data.form_data[i]);
+        }
+        formData.append("file", file);
+        // formData.append("Content-Type", file.type);
+        // formData.append("Content-Type", "multipart/form-data");
+
+        fetch(url, {
+          method: "POST",
+          body: formData
+        })
+          .then(response => response.text())
+          .then(console.log);
+      });
+  };
+
   render() {
     return (
       <Fragment>
@@ -132,6 +159,17 @@ class Settings extends Component {
               </Container>
             </Grid.Column>
             <Grid.Column textAlign="center">
+              <input type="file" name="avatar_file" hidden ref={el => (this.avatarInput = el)} onChange={this.handleChange} />
+              {this.state.avatar_file ? <Message header={this.avatarInput.files[0].name} /> : null}
+              <Button
+                content="Choose File"
+                icon="image"
+                color="black"
+                onClick={() => this.avatarInput.click()}
+              />
+              <Button color="black" onClick={this.handleUpload}>
+                UPLOAD
+              </Button>
               <Button negative onClick={this.handleDelete}>
                 Delete Account
               </Button>
