@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import DriveCreation from "../components/DriveCreation";
 
 import { Map } from "mapbox-gl";
+import { drawPoint } from "../lib/mapHelpers";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -40,6 +41,11 @@ class DriveCreationContainer extends Component {
             container: "create-map-container",
             center: [this.state.curLng, this.state.curLat],
             zoom: 8
+          });
+
+          this.map.on("click", e => {
+            // console.log(e.lngLat);
+            drawPoint(this.map, e.lngLat.toArray(), "start")
           });
         }
       );
