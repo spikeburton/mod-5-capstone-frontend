@@ -6,7 +6,8 @@ import {
   Form,
   Button,
   Message,
-  Container
+  Container,
+  Image
 } from "semantic-ui-react";
 import Navbar from "./Navbar";
 
@@ -15,7 +16,8 @@ class Settings extends Component {
     first_name: "",
     last_name: "",
     email: "",
-    avatar_file: ""
+    avatar_file: null,
+    avatar_url: ""
   };
 
   componentDidMount() {
@@ -107,7 +109,17 @@ class Settings extends Component {
           body: formData
         })
           .then(response => response.text())
-          .then(console.log);
+          .then(str => {
+            const imageURL = new DOMParser().parseFromString(
+              str,
+              "application/xml"
+            );
+            this.setState({
+              avatar_file: null,
+              avatar_url: imageURL.getElementsByTagName("Location")[0]
+                .textContent
+            });
+          });
       });
   };
 
@@ -170,6 +182,15 @@ class Settings extends Component {
               />
               {this.state.avatar_file ? (
                 <Message header={this.avatarInput.files[0].name} />
+              ) : null}
+              {this.state.avatar_url ? (
+                <Image
+                  src={this.state.avatar_url}
+                  // avatar
+                  // circular
+                  size="small"
+                  centered
+                />
               ) : null}
               <Button
                 content="Choose File"
