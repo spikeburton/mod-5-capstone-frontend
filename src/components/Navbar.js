@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Menu, Image, Dropdown, Icon } from "semantic-ui-react";
 
 const Navbar = props => {
   const { active } = props;
+  const avatar = localStorage.getItem("avatar");
+  const username = localStorage.getItem("username");
 
   return (
     <Menu secondary>
@@ -13,15 +15,49 @@ const Navbar = props => {
       <Menu.Menu position="right">
         {localStorage.getItem("token") ? (
           <Fragment>
-            <Link
-              to="/settings"
-              className={active === "settings" ? "item active" : "item"}
+            <Dropdown
+              item
+              // icon={null}
+              trigger={username}
+              pointing
             >
-              <div className="content">Settings</div>
-            </Link>
-            <Link to="/" className="item" onClick={() => localStorage.clear()}>
-              <div className="content">Log Out</div>
-            </Link>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  disabled
+                  text={
+                    <span>
+                      {/* <Image src={avatar} avatar circular /> */}
+                      Signed in as <strong>{username}</strong>
+                    </span>
+                  }
+                />
+                <Link
+                  to="/settings"
+                  className={active === "settings" ? "item active" : "item"}
+                  // className="item"
+                >
+                  <div className="content">
+                    <Icon name="settings" />
+                    Settings
+                  </div>
+                </Link>
+                <Link
+                  to="/"
+                  className="item"
+                  onClick={() => localStorage.clear()}
+                >
+                  <div className="content">
+                    <Icon name="log out" />
+                    Log Out
+                  </div>
+                </Link>
+              </Dropdown.Menu>
+            </Dropdown>
+            {avatar ? (
+              <Menu.Item>
+                <Image src={avatar} avatar circular />
+              </Menu.Item>
+            ) : null}
           </Fragment>
         ) : (
           <Fragment>

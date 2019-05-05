@@ -6,7 +6,9 @@ import {
   Form,
   Button,
   Message,
-  Container
+  Container,
+  Image,
+  Loader
 } from "semantic-ui-react";
 import Navbar from "./Navbar";
 
@@ -14,7 +16,9 @@ class Settings extends Component {
   state = {
     first_name: "",
     last_name: "",
-    email: ""
+    email: "",
+    avatar_url: "",
+    loading: false
   };
 
   componentDidMount() {
@@ -30,7 +34,8 @@ class Settings extends Component {
         this.setState({
           first_name: user.first_name,
           last_name: user.last_name,
-          email: user.email
+          email: user.email,
+          avatar_url: user.avatar_url
         });
       });
   }
@@ -56,7 +61,10 @@ class Settings extends Component {
       .then(response => response.json())
       .then(json => {
         if (json.errors) this.setState({ errors: json.errors });
-        else this.props.history.push("/");
+        else {
+          localStorage.setItem("avatar", this.state.avatar_url);
+          this.props.history.push("/");
+        }
       });
   };
 
@@ -80,6 +88,45 @@ class Settings extends Component {
         }
       });
     }
+  };
+
+  handleUpload = () => {
+    this.setState({ loading: true, avatar_url: "" });
+    const file = this.avatarInput.files[0];
+
+    fetch(`${API}/signed_s3`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        const url = data.url;
+        const formData = new FormData();
+
+        Object.keys(data.form_data).forEach(key =>
+          formData.append(key, data.form_data[key])
+        );
+        formData.append("file", file);
+
+        fetch(url, {
+          method: "POST",
+          body: formData
+        })
+          .then(response => response.text())
+          .then(str => {
+            const imageURL = new DOMParser().parseFromString(
+              str,
+              "application/xml"
+            );
+            this.setState({
+              loading: false,
+              avatar_url: imageURL.getElementsByTagName("Location")[0]
+                .textContent
+            });
+          });
+      });
   };
 
   render() {
@@ -121,7 +168,7 @@ class Settings extends Component {
                     value={this.state.email}
                     onChange={this.handleChange}
                   />
-                  <Grid textAlign="center">
+                  <Grid textAlign="center" verticalAlign="bottom">
                     <Grid.Column>
                       <Button color="black" type="submit">
                         Update
@@ -132,9 +179,44 @@ class Settings extends Component {
               </Container>
             </Grid.Column>
             <Grid.Column textAlign="center">
-              <Button negative onClick={this.handleDelete}>
-                Delete Account
-              </Button>
+              <Container>
+                <input
+                  type="file"
+                  hidden
+                  ref={el => (this.avatarInput = el)}
+                  onChange={this.handleUpload}
+                />
+                {this.state.loading ? (
+                  // <Message header={this.avatarInput.files[0].name} />
+                  <Segment placeholder>
+                    <Loader active size="small" />
+                  </Segment>
+                ) : null}
+                {this.state.avatar_url ? (
+                  <Segment placeholder>
+                    <Image
+                      src={this.state.avatar_url}
+                      // avatar
+                      // circular
+                      size="small"
+                      bordered
+                      centered
+                    />
+                  </Segment>
+                ) : null}
+                <br />
+                <Button
+                  fluid
+                  content={this.state.avatar_url ? "Change Photo" : "Add Photo"}
+                  icon="image"
+                  color="black"
+                  onClick={() => this.avatarInput.click()}
+                />
+                <br />
+                <Button fluid negative onClick={this.handleDelete}>
+                  Delete Account
+                </Button>
+              </Container>
             </Grid.Column>
           </Grid>
           {this.state.errors ? (
