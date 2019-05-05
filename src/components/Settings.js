@@ -7,7 +7,8 @@ import {
   Button,
   Message,
   Container,
-  Image
+  Image,
+  Loader
 } from "semantic-ui-react";
 import Navbar from "./Navbar";
 
@@ -17,7 +18,7 @@ class Settings extends Component {
     last_name: "",
     email: "",
     avatar_url: "",
-    avatar_file: null
+    loading: false
   };
 
   componentDidMount() {
@@ -90,6 +91,7 @@ class Settings extends Component {
   };
 
   handleUpload = () => {
+    this.setState({ loading: true, avatar_url: "" });
     const file = this.avatarInput.files[0];
 
     fetch(`${API}/signed_s3`, {
@@ -119,7 +121,7 @@ class Settings extends Component {
               "application/xml"
             );
             this.setState({
-              avatar_file: null,
+              loading: false,
               avatar_url: imageURL.getElementsByTagName("Location")[0]
                 .textContent
             });
@@ -166,7 +168,7 @@ class Settings extends Component {
                     value={this.state.email}
                     onChange={this.handleChange}
                   />
-                  <Grid textAlign="center">
+                  <Grid textAlign="center" verticalAlign="bottom">
                     <Grid.Column>
                       <Button color="black" type="submit">
                         Update
@@ -177,37 +179,44 @@ class Settings extends Component {
               </Container>
             </Grid.Column>
             <Grid.Column textAlign="center">
-              <input
-                type="file"
-                name="avatar_file"
-                hidden
-                ref={el => (this.avatarInput = el)}
-                onChange={this.handleChange}
-              />
-              {this.state.avatar_file ? (
-                <Message header={this.avatarInput.files[0].name} />
-              ) : null}
-              {this.state.avatar_url ? (
-                <Image
-                  src={this.state.avatar_url}
-                  // avatar
-                  // circular
-                  size="small"
-                  centered
+              <Container>
+                <input
+                  type="file"
+                  hidden
+                  ref={el => (this.avatarInput = el)}
+                  onChange={this.handleUpload}
                 />
-              ) : null}
-              <Button
-                content="Choose File"
-                icon="image"
-                color="black"
-                onClick={() => this.avatarInput.click()}
-              />
-              <Button color="black" onClick={this.handleUpload}>
-                UPLOAD
-              </Button>
-              <Button negative onClick={this.handleDelete}>
-                Delete Account
-              </Button>
+                {this.state.loading ? (
+                  // <Message header={this.avatarInput.files[0].name} />
+                  <Segment placeholder>
+                    <Loader active size="small" />
+                  </Segment>
+                ) : null}
+                {this.state.avatar_url ? (
+                  <Segment placeholder>
+                    <Image
+                      src={this.state.avatar_url}
+                      // avatar
+                      // circular
+                      size="small"
+                      bordered
+                      centered
+                    />
+                  </Segment>
+                ) : null}
+                <br />
+                <Button
+                  fluid
+                  content={this.state.avatar_url ? "Change Photo" : "Add Photo"}
+                  icon="image"
+                  color="black"
+                  onClick={() => this.avatarInput.click()}
+                />
+                <br />
+                <Button fluid negative onClick={this.handleDelete}>
+                  Delete Account
+                </Button>
+              </Container>
             </Grid.Column>
           </Grid>
           {this.state.errors ? (
