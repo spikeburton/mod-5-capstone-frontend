@@ -16,8 +16,8 @@ class Settings extends Component {
     first_name: "",
     last_name: "",
     email: "",
-    avatar_file: null,
-    avatar_url: ""
+    avatar_url: "",
+    avatar_file: null
   };
 
   componentDidMount() {
@@ -33,7 +33,8 @@ class Settings extends Component {
         this.setState({
           first_name: user.first_name,
           last_name: user.last_name,
-          email: user.email
+          email: user.email,
+          avatar_url: user.avatar_url
         });
       });
   }
@@ -59,7 +60,10 @@ class Settings extends Component {
       .then(response => response.json())
       .then(json => {
         if (json.errors) this.setState({ errors: json.errors });
-        else this.props.history.push("/");
+        else {
+          localStorage.setItem("avatar", this.state.avatar_url);
+          this.props.history.push("/");
+        }
       });
   };
 
