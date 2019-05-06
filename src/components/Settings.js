@@ -8,7 +8,9 @@ import {
   Message,
   Container,
   Image,
-  Loader
+  Loader,
+  Modal,
+  Icon
 } from "semantic-ui-react";
 import Navbar from "./Navbar";
 
@@ -18,7 +20,8 @@ class Settings extends Component {
     last_name: "",
     email: "",
     avatar_url: "",
-    loading: false
+    loading: false,
+    delete: false
   };
 
   componentDidMount() {
@@ -203,7 +206,9 @@ class Settings extends Component {
                       centered
                     />
                   </Segment>
-                ) : null}
+                ) : (
+                  <Segment placeholder />
+                )}
                 <br />
                 <Button
                   fluid
@@ -213,7 +218,11 @@ class Settings extends Component {
                   onClick={() => this.avatarInput.click()}
                 />
                 <br />
-                <Button fluid negative onClick={this.handleDelete}>
+                <Button
+                  fluid
+                  negative
+                  onClick={() => this.setState({ delete: true })}
+                >
                   Delete Account
                 </Button>
               </Container>
@@ -228,6 +237,28 @@ class Settings extends Component {
             />
           ) : null}
         </Segment>
+        <Modal open={this.state.delete}>
+          <Modal.Header>
+            <Icon name="warning sign" />
+            WARNING
+          </Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              This action is permanent and cannot be reversed. Are you sure you
+              wish to continue?
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button negative onClick={this.handleDelete}>
+              <Icon name="check" />
+              Confirm
+            </Button>
+            <Button onClick={() => this.setState({ delete: false })}>
+              <Icon name="cancel" />
+              Cancel
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </Fragment>
     );
   }
