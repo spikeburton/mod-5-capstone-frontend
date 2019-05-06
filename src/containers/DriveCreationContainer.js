@@ -1,16 +1,20 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Navbar from "../components/Navbar";
 import DriveCreation from "../components/DriveCreation";
 
 import { Map } from "mapbox-gl";
-import { drawPoint } from "../lib/mapHelpers";
+import { fetchDirections } from "../actions/mapActions";
+import { drawPoint, drawRoute } from "../lib/mapHelpers";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 
 class DriveCreationContainer extends Component {
   state = {
     curLng: 0,
-    curLat: 0
+    curLat: 0,
+    endLng: 0,
+    endLat: 0
   };
 
   getLocation = () => {
@@ -52,8 +56,24 @@ class DriveCreationContainer extends Component {
             const canvas = this.map.getCanvasContainer();
 
             this.map.on("click", e => {
-              // console.log(e.lngLat);
+              const bounds = {
+                lngA: this.state.curLng,
+                latA: this.state.curLat,
+                lngB: e.lngLat.lng,
+                latB: e.lngLat.lat
+              };
+
+              console.log(bounds)
+
               drawPoint(this.map, e.lngLat.toArray(), "end");
+              this.props
+                .fetchDirections(bounds)
+                .then(() => drawRoute(this.map, this.props.route));
+
+              this.setState({
+                endLng: e.lngLat.lng,
+                endLat: e.lngLat.lat
+              });
             });
 
             this.map.on("mouseenter", "start", () => {
@@ -119,4 +139,19 @@ class DriveCreationContainer extends Component {
   }
 }
 
-export default DriveCreationContainer;
+const mapStateToProps = state => {
+  return {
+    route: state.map.route
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchDirections: bounds => fetchDirections(bounds)(dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DriveCreationContainer);
