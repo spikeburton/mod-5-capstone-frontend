@@ -16,7 +16,8 @@ class DriveCreationContainer extends Component {
     endLng: 0,
     endLat: 0,
     name: "",
-    description: ""
+    description: "",
+    submit: false
   };
 
   getLocation = () => {
@@ -132,7 +133,7 @@ class DriveCreationContainer extends Component {
                 canvas.style.cursor = "";
                 this.map.off("mousemove", onMove);
                 this.redrawRoute(upEvent);
-                this.props.fetchGeolocation(upEvent.lngLat.toArray(), "start")
+                this.props.fetchGeolocation(upEvent.lngLat.toArray(), "start");
               });
             });
 
@@ -155,7 +156,7 @@ class DriveCreationContainer extends Component {
               this.map.once("touchend", endEvent => {
                 this.map.off("touchmove", onMove);
                 this.redrawRoute(endEvent);
-                this.props.fetchGeolocation(endEvent.lngLat.toArray(), "start")
+                this.props.fetchGeolocation(endEvent.lngLat.toArray(), "start");
               });
             });
           });
@@ -171,24 +172,27 @@ class DriveCreationContainer extends Component {
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
 
-    console.log(this.state)
-  }
+    console.log(this.state);
+  };
 
   render() {
     return (
       <div>
         <Navbar active="create" />
         <DriveCreation
+          loaded={(this.state.curLng && this.state.curLat) ? true : false}
           geolocationA={this.props.geolocationStart}
           geolocationB={this.props.geolocationEnd}
           name={this.state.name}
           description={this.state.description}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
         />
       </div>
     );

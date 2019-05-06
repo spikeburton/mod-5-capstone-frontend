@@ -19,6 +19,7 @@ class DriveCreation extends Component {
               <Form>
                 <Form.Input
                   fluid
+                  name="name"
                   label="Enter a name:"
                   type="text"
                   placeholder="Name..."
@@ -26,6 +27,7 @@ class DriveCreation extends Component {
                   value={this.props.name}
                 />
                 <Form.TextArea
+                  name="description"
                   label="Enter a short description:"
                   placeholder="Description..."
                   onChange={this.props.handleChange}
@@ -57,7 +59,7 @@ class DriveCreation extends Component {
               />
             </Grid.Column>
           </Grid>
-          <Modal open={!(this.props.lat && this.props.lng)}>
+          <Modal open={!this.props.loaded}>
             <Loader active size="massive" />
           </Modal>
         </Segment>
