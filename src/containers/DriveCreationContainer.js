@@ -160,7 +160,7 @@ class DriveCreationContainer extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar active="create" />
         <DriveCreation
           lng={this.state.curLng}
           lat={this.state.curLat}
