@@ -4,7 +4,9 @@ export const mapReducer = (
     current: null,
     loading: false,
     route: [],
-    directions: []
+    directions: [],
+    geolocationStart: "",
+    geolocationEnd: ""
   },
   action
 ) => {
@@ -22,6 +24,12 @@ export const mapReducer = (
         route: action.route,
         directions: action.directions
       };
+    case "LOADING_GEOLOCATION":
+      return { ...state, loading: true };
+    case "FETCH_GEOLOCATION_A":
+      return { ...state, loading: false, geolocationStart: action.payload };
+    case "FETCH_GEOLOCATION_B":
+      return { ...state, loading: false, geolocationEnd: action.payload };
     default:
       return state;
   }

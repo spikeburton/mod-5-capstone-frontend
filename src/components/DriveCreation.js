@@ -8,8 +8,10 @@ class DriveCreation extends Component {
         <Segment>
           <Grid columns="2" stackable reversed="mobile">
             <Grid.Column>
-              <p>Current longitude: {this.props.lng}</p>
-              <p>Current latitude: {this.props.lat}</p>
+              <p>Starting longitude: {this.props.lng}</p>
+              <p>Starting latitude: {this.props.lat}</p>
+              <p>Starting Location: {this.props.geolocationA}</p>
+              <p>Ending Location: {this.props.geolocationB}</p>
             </Grid.Column>
             <Grid.Column>
               <div

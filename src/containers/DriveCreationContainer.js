@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import DriveCreation from "../components/DriveCreation";
 
 import { Map } from "mapbox-gl";
-import { fetchDirections } from "../actions/mapActions";
+import { fetchDirections, fetchGeolocation } from "../actions/mapActions";
 import { drawPoint, drawRoute } from "../lib/mapHelpers";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -66,6 +66,11 @@ class DriveCreationContainer extends Component {
           });
 
           this.map.on("load", () => {
+            this.props.fetchGeolocation(
+              [this.state.curLng, this.state.curLat],
+              "start"
+            );
+
             drawPoint(
               this.map,
               [this.state.curLng, this.state.curLat],
@@ -85,6 +90,8 @@ class DriveCreationContainer extends Component {
               this.props
                 .fetchDirections(bounds)
                 .then(() => drawRoute(this.map, this.props.route));
+
+              this.props.fetchGeolocation([e.lngLat.lng, e.lngLat.lat], "end");
 
               this.setState({
                 endLng: e.lngLat.lng,
@@ -123,6 +130,7 @@ class DriveCreationContainer extends Component {
                 canvas.style.cursor = "";
                 this.map.off("mousemove", onMove);
                 this.redrawRoute(upEvent);
+                this.props.fetchGeolocation(upEvent.lngLat.toArray(), "start")
               });
             });
 
@@ -145,6 +153,7 @@ class DriveCreationContainer extends Component {
               this.map.once("touchend", endEvent => {
                 this.map.off("touchmove", onMove);
                 this.redrawRoute(endEvent);
+                this.props.fetchGeolocation(endEvent.lngLat.toArray(), "start")
               });
             });
           });
@@ -164,6 +173,8 @@ class DriveCreationContainer extends Component {
         <DriveCreation
           lng={this.state.curLng}
           lat={this.state.curLat}
+          geolocationA={this.props.geolocationStart}
+          geolocationB={this.props.geolocationEnd}
           map={this.map}
         />
       </div>
@@ -173,13 +184,17 @@ class DriveCreationContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    route: state.map.route
+    route: state.map.route,
+    geolocationStart: state.map.geolocationStart,
+    geolocationEnd: state.map.geolocationEnd
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchDirections: bounds => fetchDirections(bounds)(dispatch)
+    fetchDirections: bounds => fetchDirections(bounds)(dispatch),
+    fetchGeolocation: (coords, point) =>
+      fetchGeolocation(coords, point)(dispatch)
   };
 };
 
