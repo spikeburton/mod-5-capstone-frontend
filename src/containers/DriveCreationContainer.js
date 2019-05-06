@@ -167,6 +167,7 @@ class DriveCreationContainer extends Component {
   }
 
   render() {
+    console.log(this.props.region)
     return (
       <div>
         <Navbar active="create" />
@@ -186,7 +187,8 @@ const mapStateToProps = state => {
   return {
     route: state.map.route,
     geolocationStart: state.map.geolocationStart,
-    geolocationEnd: state.map.geolocationEnd
+    geolocationEnd: state.map.geolocationEnd,
+    region: state.map.region
   };
 };
 

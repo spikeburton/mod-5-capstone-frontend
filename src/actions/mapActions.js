@@ -33,7 +33,8 @@ export const fetchDirections = bounds => {
 };
 
 export const fetchGeolocation = (coords, point) => {
-  const type = point === "start" ? "FETCH_GEOLOCATION_A" : "FETCH_GEOLOCATION_B"
+  const type =
+    point === "start" ? "FETCH_GEOLOCATION_A" : "FETCH_GEOLOCATION_B";
 
   return dispatch => {
     dispatch({ type: "LOADING_GEOLOCATION " });
@@ -43,6 +44,16 @@ export const fetchGeolocation = (coords, point) => {
       }`
     )
       .then(response => response.json())
-      .then(payload => dispatch({ type, payload: payload.features[0].place_name }));
+      .then(payload => {
+        const region = payload.features.find(feature => {
+          return feature.place_type[0] === "region";
+        })
+
+        dispatch({
+          type,
+          geolocation: payload.features[0].place_name,
+          region: region.properties.short_code.split("-")[1]
+        });
+      });
   };
 };
