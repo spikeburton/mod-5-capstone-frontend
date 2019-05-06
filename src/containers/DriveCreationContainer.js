@@ -63,8 +63,6 @@ class DriveCreationContainer extends Component {
                 latB: e.lngLat.lat
               };
 
-              console.log(bounds)
-
               drawPoint(this.map, e.lngLat.toArray(), "end");
               this.props
                 .fetchDirections(bounds)
@@ -90,6 +88,11 @@ class DriveCreationContainer extends Component {
               e.preventDefault();
               canvas.style.cursor = "grab";
 
+              if (this.map.getSource("route")) {
+                this.map.removeLayer("route");
+                this.map.removeSource("route");
+              }
+
               const onMove = moveEvent => {
                 canvas.style.cursor = "grabbing";
                 const coords = moveEvent.lngLat.toArray();
@@ -98,9 +101,27 @@ class DriveCreationContainer extends Component {
               };
 
               this.map.on("mousemove", onMove);
-              this.map.once("mouseup", () => {
+              this.map.once("mouseup", upEvent => {
                 canvas.style.cursor = "";
                 this.map.off("mousemove", onMove);
+
+                if (this.map.getSource("end")) {
+                  const bounds = {
+                    lngA: upEvent.lngLat.lng,
+                    latA: upEvent.lngLat.lat,
+                    lngB: this.state.endLng,
+                    latB: this.state.endLat
+                  };
+
+                  this.props
+                    .fetchDirections(bounds)
+                    .then(() => drawRoute(this.map, this.props.route));
+                }
+
+                this.setState({
+                  curLng: upEvent.lngLat.lng,
+                  curLat: upEvent.lngLat.lat
+                })
               });
             });
 
