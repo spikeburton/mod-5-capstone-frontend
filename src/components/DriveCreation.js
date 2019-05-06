@@ -6,7 +6,8 @@ import {
   Loader,
   Modal,
   Form,
-  Button
+  Button,
+  Message
 } from "semantic-ui-react";
 
 class DriveCreation extends Component {
@@ -62,6 +63,13 @@ class DriveCreation extends Component {
           <Modal open={!this.props.loaded}>
             <Loader active size="massive" />
           </Modal>
+          {this.props.errors.length > 0 ? (
+            <Message
+              error
+              header="Invalid Submission:"
+              list={this.props.errors}
+            />
+          ) : null}
         </Segment>
       </Container>
     );

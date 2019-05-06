@@ -8,6 +8,8 @@ import { fetchDirections, fetchGeolocation } from "../actions/mapActions";
 import { drawPoint, drawRoute } from "../lib/mapHelpers";
 
 import "mapbox-gl/dist/mapbox-gl.css";
+import CreateModal from "../components/CreateModal";
+import { API } from "../data";
 
 class DriveCreationContainer extends Component {
   state = {
@@ -17,7 +19,8 @@ class DriveCreationContainer extends Component {
     endLat: 0,
     name: "",
     description: "",
-    submit: false
+    submit: false,
+    errors: []
   };
 
   getLocation = () => {
@@ -178,7 +181,44 @@ class DriveCreationContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    console.log(this.state);
+    if (this.state.name && this.state.endLat && this.state.endLng) {
+      this.setState({
+        submit: true,
+        errors: []
+      });
+    } else {
+      this.setState({
+        errors: ["You must provide a name and an ending location."]
+      })
+    }
+  };
+
+  handleConfirm = () => {
+    console.log("CONFIRM");
+    const data = {
+      bound_a_lng: this.state.curLng,
+      bound_a_lat: this.state.curLat,
+      bound_b_lng: this.state.endLng,
+      bound_b_lat: this.state.endLat,
+      name: this.state.name,
+      description: this.state.description,
+      state: this.props.region
+    }
+
+    fetch(`${API}/drives`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(console.log)
+  };
+
+  handleCancel = () => {
+    this.setState({
+      submit: false
+    });
   };
 
   render() {
@@ -186,13 +226,24 @@ class DriveCreationContainer extends Component {
       <div>
         <Navbar active="create" />
         <DriveCreation
-          loaded={(this.state.curLng && this.state.curLat) ? true : false}
+          loaded={this.state.curLng && this.state.curLat ? true : false}
           geolocationA={this.props.geolocationStart}
           geolocationB={this.props.geolocationEnd}
           name={this.state.name}
           description={this.state.description}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          errors={this.state.errors}
+        />
+        <CreateModal
+          open={this.state.submit}
+          geolocationA={this.props.geolocationStart}
+          geolocationB={this.props.geolocationEnd}
+          name={this.state.name}
+          description={this.state.description}
+          region={this.props.region}
+          handleConfirm={this.handleConfirm}
+          handleCancel={this.handleCancel}
         />
       </div>
     );
