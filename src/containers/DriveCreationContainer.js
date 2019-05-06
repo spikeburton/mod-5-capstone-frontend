@@ -14,7 +14,9 @@ class DriveCreationContainer extends Component {
     curLng: 0,
     curLat: 0,
     endLng: 0,
-    endLat: 0
+    endLat: 0,
+    name: "",
+    description: ""
   };
 
   getLocation = () => {
@@ -166,17 +168,27 @@ class DriveCreationContainer extends Component {
     if (this.map) this.map.remove();
   }
 
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+
+    console.log(this.state)
+  }
+
   render() {
-    console.log(this.props.region)
     return (
       <div>
         <Navbar active="create" />
         <DriveCreation
-          lng={this.state.curLng}
-          lat={this.state.curLat}
           geolocationA={this.props.geolocationStart}
           geolocationB={this.props.geolocationEnd}
-          map={this.map}
+          name={this.state.name}
+          description={this.state.description}
         />
       </div>
     );
