@@ -153,6 +153,10 @@ class DriveCreationContainer extends Component {
     });
   }
 
+  componentWillUnmount() {
+    if (this.map) this.map.remove();
+  }
+
   render() {
     return (
       <div>
