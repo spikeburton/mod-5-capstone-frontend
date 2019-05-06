@@ -65,7 +65,7 @@ export const drawRoute = (map, route) => {
   }
 };
 
-export const drawBounds = bounds => {
-  this.drawPoint([bounds.lngA, bounds.latA], "A");
-  this.drawPoint([bounds.lngB, bounds.latB], "B");
+export const drawBounds = (map, bounds) => {
+  drawPoint(map, [bounds.lngA, bounds.latA], "A");
+  drawPoint(map, [bounds.lngB, bounds.latB], "B");
 };
