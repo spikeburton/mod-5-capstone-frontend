@@ -32,6 +32,24 @@ class DriveCreationContainer extends Component {
     });
   };
 
+  redrawRoute = upEvent => {
+    if (this.map.getSource("end")) {
+      const bounds = {
+        lngA: upEvent.lngLat.lng,
+        latA: upEvent.lngLat.lat,
+        lngB: this.state.endLng,
+        latB: this.state.endLat
+      };
+      this.props
+        .fetchDirections(bounds)
+        .then(() => drawRoute(this.map, this.props.route));
+    }
+    this.setState({
+      curLng: upEvent.lngLat.lng,
+      curLat: upEvent.lngLat.lat
+    });
+  };
+
   componentDidMount() {
     this.getLocation().then(pos => {
       this.setState(
@@ -134,24 +152,6 @@ class DriveCreationContainer extends Component {
       );
     });
   }
-
-  redrawRoute = upEvent => {
-    if (this.map.getSource("end")) {
-      const bounds = {
-        lngA: upEvent.lngLat.lng,
-        latA: upEvent.lngLat.lat,
-        lngB: this.state.endLng,
-        latB: this.state.endLat
-      };
-      this.props
-        .fetchDirections(bounds)
-        .then(() => drawRoute(this.map, this.props.route));
-    }
-    this.setState({
-      curLng: upEvent.lngLat.lng,
-      curLat: upEvent.lngLat.lat
-    });
-  };
 
   render() {
     return (
