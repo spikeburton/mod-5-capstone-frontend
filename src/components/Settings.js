@@ -8,7 +8,9 @@ import {
   Message,
   Container,
   Image,
-  Loader
+  Loader,
+  Modal,
+  Icon
 } from "semantic-ui-react";
 import Navbar from "./Navbar";
 
@@ -18,7 +20,8 @@ class Settings extends Component {
     last_name: "",
     email: "",
     avatar_url: "",
-    loading: false
+    loading: false,
+    delete: false
   };
 
   componentDidMount() {
@@ -62,32 +65,25 @@ class Settings extends Component {
       .then(json => {
         if (json.errors) this.setState({ errors: json.errors });
         else {
-          localStorage.setItem("avatar", this.state.avatar_url);
+          if (this.state.avatar_url)
+            localStorage.setItem("avatar", this.state.avatar_url);
           this.props.history.push("/");
         }
       });
   };
 
   handleDelete = () => {
-    const confirmation = window.confirm(
-      "Are you sure? This action cannot be reversed!"
-    );
-    if (confirmation) {
-      fetch(`${API}/purge`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      }).then(response => {
-        if (response.ok) {
-          window.alert(
-            "We're sad to see you go! Your account has been deleted."
-          );
-          localStorage.clear();
-          this.props.history.push("/signup");
-        }
-      });
-    }
+    fetch(`${API}/purge`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then(response => {
+      if (response.ok) {
+        localStorage.clear();
+        this.props.history.push("/signup");
+      }
+    });
   };
 
   handleUpload = () => {
@@ -213,7 +209,11 @@ class Settings extends Component {
                   onClick={() => this.avatarInput.click()}
                 />
                 <br />
-                <Button fluid negative onClick={this.handleDelete}>
+                <Button
+                  fluid
+                  negative
+                  onClick={() => this.setState({ delete: true })}
+                >
                   Delete Account
                 </Button>
               </Container>
@@ -228,6 +228,28 @@ class Settings extends Component {
             />
           ) : null}
         </Segment>
+        <Modal open={this.state.delete}>
+          <Modal.Header>
+            <Icon name="warning sign" />
+            WARNING
+          </Modal.Header>
+          <Modal.Content>
+            <Modal.Description>
+              This action is permanent and cannot be reversed. Are you sure you
+              wish to continue?
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button negative onClick={this.handleDelete}>
+              <Icon name="check" />
+              Confirm
+            </Button>
+            <Button onClick={() => this.setState({ delete: false })}>
+              <Icon name="cancel" />
+              Cancel
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </Fragment>
     );
   }
