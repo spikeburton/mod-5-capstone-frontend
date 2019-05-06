@@ -65,7 +65,7 @@ class Settings extends Component {
       .then(json => {
         if (json.errors) this.setState({ errors: json.errors });
         else {
-          localStorage.setItem("avatar", this.state.avatar_url);
+          if (this.state.avatar_url) localStorage.setItem("avatar", this.state.avatar_url);
           this.props.history.push("/");
         }
       });
