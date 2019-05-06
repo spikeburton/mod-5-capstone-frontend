@@ -38,7 +38,12 @@ class DriveCreation extends Component {
                   <strong>Starting Location:</strong> {this.props.geolocationA}
                 </p>
                 <p>
-                  <strong>Ending Location:</strong> {this.props.geolocationB}
+                  <strong>Ending Location:</strong>{" "}
+                  {this.props.geolocationB ? (
+                    this.props.geolocationB
+                  ) : (
+                    <strong>NOT SET</strong>
+                  )}
                 </p>
                 <Grid>
                   <Grid.Column textAlign="center">
