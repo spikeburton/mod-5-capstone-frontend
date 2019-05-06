@@ -194,7 +194,6 @@ class DriveCreationContainer extends Component {
   };
 
   handleConfirm = () => {
-    console.log("CONFIRM");
     const data = {
       bound_a_lng: this.state.curLng,
       bound_a_lat: this.state.curLat,
@@ -212,7 +211,15 @@ class DriveCreationContainer extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then(console.log)
+    }).then(response => {
+      if (response.ok) this.props.history.push("/")
+      else {
+        this.setState({
+          submit: false,
+          errors: "There was an error with your submission."
+        })
+      }
+    })
   };
 
   handleCancel = () => {
