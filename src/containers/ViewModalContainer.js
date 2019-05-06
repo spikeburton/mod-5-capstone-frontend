@@ -5,6 +5,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 import { closeModal, fetchDirections } from "../actions/mapActions";
 import { addFavorite, removeFavorite } from "../actions/favoriteActions";
+import { drawBounds, drawPoint, drawRoute } from "../lib/mapHelpers";
 import ViewModal from "../components/ViewModal";
 
 class ViewModalContainer extends Component {
@@ -35,82 +36,10 @@ class ViewModalContainer extends Component {
 
     this.map.on("load", () => {
       this.props.fetchDirections(bounds).then(() => {
-        this.drawBounds(bounds);
-        this.drawRoute(this.props.route);
+        drawBounds(this.map, bounds);
+        drawRoute(this.map, this.props.route);
       });
     });
-  };
-
-  drawRoute = route => {
-    const geojson = {
-      type: "Feature",
-      properties: {},
-      geometry: {
-        type: "LineString",
-        coordinates: route
-      }
-    };
-
-    if (this.map.getSource("route")) {
-      this.map.getSource("route").setData(geojson);
-    } else {
-      // make a new request
-      this.map.addLayer({
-        id: "route",
-        type: "line",
-        source: {
-          type: "geojson",
-          data: geojson
-        },
-        layout: {
-          "line-join": "round",
-          "line-cap": "round"
-        },
-        paint: {
-          "line-color": "#203834",
-          "line-width": 7,
-          "line-opacity": 0.75
-        }
-      });
-    }
-  };
-
-  drawBounds = bounds => {
-    this.drawPoint([bounds.lngA, bounds.latA], "A");
-    this.drawPoint([bounds.lngB, bounds.latB], "B");
-  };
-
-  drawPoint = (coords, name, radius = 9, color = "#203834") => {
-    const pointData = {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "Point",
-            coordinates: coords
-          }
-        }
-      ]
-    };
-
-    if (this.map.getLayer(name)) {
-      this.map.getSource(name).setData(pointData);
-    } else {
-      this.map.addLayer({
-        id: name,
-        type: "circle",
-        source: {
-          type: "geojson",
-          data: pointData
-        },
-        paint: {
-          "circle-radius": radius,
-          "circle-color": color
-        }
-      });
-    }
   };
 
   handleUnmount = () => {
@@ -136,7 +65,7 @@ class ViewModalContainer extends Component {
   };
 
   handleMouseEnter = coords => {
-    this.drawPoint(coords, "step", 6, "#008330");
+    drawPoint(this.map, coords, "step", 6, "#008330");
   };
 
   handleMouseLeave = () => {
@@ -147,8 +76,10 @@ class ViewModalContainer extends Component {
   };
 
   render() {
-    const favorites = this.props.favorites.map(favorite => favorite.drive_id)
-    const saved = this.props.current ? favorites.includes(this.props.current.id) : false
+    const favorites = this.props.favorites.map(favorite => favorite.drive_id);
+    const saved = this.props.current
+      ? favorites.includes(this.props.current.id)
+      : false;
 
     return (
       <ViewModal
@@ -156,7 +87,13 @@ class ViewModalContainer extends Component {
         current={this.props.current}
         route={this.props.route}
         directions={this.props.directions}
-        saved={saved ? this.props.favorites.find(f => f.drive_id === this.props.current.id) : false}
+        saved={
+          saved
+            ? this.props.favorites.find(
+                f => f.drive_id === this.props.current.id
+              )
+            : false
+        }
         handleMount={this.handleMount}
         handleUnmount={this.handleUnmount}
         handleClose={this.props.closeModal}

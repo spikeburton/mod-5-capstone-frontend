@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import MainContainer from "./containers/MainContainer";
 import Settings from "./components/Settings";
+import DriveCreationContainer from "./containers/DriveCreationContainer";
 
 class App extends Component {
   render() {
@@ -17,6 +18,17 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path={"/"} component={MainContainer} />
+            <Route
+              exact
+              path={"/create"}
+              render={props =>
+                localStorage.getItem("token") ? (
+                  <DriveCreationContainer {...props} />
+                ) : (
+                  <Redirect to="/login" {...props} />
+                )
+              }
+            />
             <Route
               exact
               path={"/settings"}
