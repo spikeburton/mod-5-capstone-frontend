@@ -31,6 +31,16 @@ const Navbar = props => {
                     </span>
                   }
                 />
+                <Dropdown.Divider />
+                <Link
+                  to="/create"
+                  className={active === "create" ? "item active" : "item"}
+                >
+                  <div className="content">
+                  <Icon name="upload" />
+                  Add a drive
+                  </div>
+                </Link>
                 <Link
                   to="/settings"
                   className={active === "settings" ? "item active" : "item"}
