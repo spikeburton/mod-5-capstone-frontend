@@ -65,32 +65,25 @@ class Settings extends Component {
       .then(json => {
         if (json.errors) this.setState({ errors: json.errors });
         else {
-          if (this.state.avatar_url) localStorage.setItem("avatar", this.state.avatar_url);
+          if (this.state.avatar_url)
+            localStorage.setItem("avatar", this.state.avatar_url);
           this.props.history.push("/");
         }
       });
   };
 
   handleDelete = () => {
-    const confirmation = window.confirm(
-      "Are you sure? This action cannot be reversed!"
-    );
-    if (confirmation) {
-      fetch(`${API}/purge`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      }).then(response => {
-        if (response.ok) {
-          window.alert(
-            "We're sad to see you go! Your account has been deleted."
-          );
-          localStorage.clear();
-          this.props.history.push("/signup");
-        }
-      });
-    }
+    fetch(`${API}/purge`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then(response => {
+      if (response.ok) {
+        localStorage.clear();
+        this.props.history.push("/signup");
+      }
+    });
   };
 
   handleUpload = () => {
@@ -206,9 +199,7 @@ class Settings extends Component {
                       centered
                     />
                   </Segment>
-                ) : (
-                  <Segment placeholder />
-                )}
+                ) : null}
                 <br />
                 <Button
                   fluid
