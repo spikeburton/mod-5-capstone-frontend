@@ -181,15 +181,22 @@ class DriveCreationContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    if (this.state.name && this.state.endLat && this.state.endLng) {
+    if (
+      this.state.name &&
+      this.state.description &&
+      this.state.endLat &&
+      this.state.endLng
+    ) {
       this.setState({
         submit: true,
         errors: []
       });
     } else {
       this.setState({
-        errors: ["You must provide a name and an ending location."]
-      })
+        errors: [
+          "You must provide a name, description, and an ending location."
+        ]
+      });
     }
   };
 
@@ -202,7 +209,7 @@ class DriveCreationContainer extends Component {
       name: this.state.name,
       description: this.state.description,
       state: this.props.region
-    }
+    };
 
     fetch(`${API}/drives`, {
       method: "POST",
@@ -211,15 +218,18 @@ class DriveCreationContainer extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then(response => {
-      if (response.ok) this.props.history.push("/")
-      else {
-        this.setState({
-          submit: false,
-          errors: "There was an error with your submission."
-        })
-      }
     })
+      .then(response => response.json())
+      .then(payload => {
+        if (payload.errors) {
+          this.setState({
+            submit: false,
+            errors: payload.errors
+          });
+        } else {
+          this.props.history.push("/");
+        }
+      });
   };
 
   handleCancel = () => {
