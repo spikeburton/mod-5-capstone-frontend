@@ -104,30 +104,18 @@ class DriveCreationContainer extends Component {
               this.map.once("mouseup", upEvent => {
                 canvas.style.cursor = "";
                 this.map.off("mousemove", onMove);
-
-                if (this.map.getSource("end")) {
-                  const bounds = {
-                    lngA: upEvent.lngLat.lng,
-                    latA: upEvent.lngLat.lat,
-                    lngB: this.state.endLng,
-                    latB: this.state.endLat
-                  };
-
-                  this.props
-                    .fetchDirections(bounds)
-                    .then(() => drawRoute(this.map, this.props.route));
-                }
-
-                this.setState({
-                  curLng: upEvent.lngLat.lng,
-                  curLat: upEvent.lngLat.lat
-                })
+                this.redrawRoute(upEvent);
               });
             });
 
             this.map.on("touchstart", "start", e => {
               if (e.points.length !== 1) return;
               e.preventDefault();
+
+              if (this.map.getSource("route")) {
+                this.map.removeLayer("route");
+                this.map.removeSource("route");
+              }
 
               const onMove = moveEvent => {
                 const coords = moveEvent.lngLat.toArray();
@@ -136,15 +124,34 @@ class DriveCreationContainer extends Component {
               };
 
               this.map.on("touchmove", onMove);
-              this.map.once("touchend", () =>
-                this.map.off("touchmove", onMove)
-              );
+              this.map.once("touchend", endEvent => {
+                this.map.off("touchmove", onMove);
+                this.redrawRoute(endEvent);
+              });
             });
           });
         }
       );
     });
   }
+
+  redrawRoute = upEvent => {
+    if (this.map.getSource("end")) {
+      const bounds = {
+        lngA: upEvent.lngLat.lng,
+        latA: upEvent.lngLat.lat,
+        lngB: this.state.endLng,
+        latB: this.state.endLat
+      };
+      this.props
+        .fetchDirections(bounds)
+        .then(() => drawRoute(this.map, this.props.route));
+    }
+    this.setState({
+      curLng: upEvent.lngLat.lng,
+      curLat: upEvent.lngLat.lat
+    });
+  };
 
   render() {
     return (
