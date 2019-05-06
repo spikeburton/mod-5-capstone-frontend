@@ -30,3 +30,37 @@ export const drawPoint = (map, coords, name, radius = 9, color = "#203834") => {
     });
   }
 };
+
+export const drawRoute = (map, route) => {
+  const geojson = {
+    type: "Feature",
+    properties: {},
+    geometry: {
+      type: "LineString",
+      coordinates: route
+    }
+  };
+
+  if (map.getSource("route")) {
+    map.getSource("route").setData(geojson);
+  } else {
+    // make a new request
+    map.addLayer({
+      id: "route",
+      type: "line",
+      source: {
+        type: "geojson",
+        data: geojson
+      },
+      layout: {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      paint: {
+        "line-color": "#203834",
+        "line-width": 7,
+        "line-opacity": 0.75
+      }
+    });
+  }
+};
