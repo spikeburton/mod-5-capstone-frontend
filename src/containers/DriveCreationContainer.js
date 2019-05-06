@@ -57,23 +57,48 @@ class DriveCreationContainer extends Component {
             });
 
             this.map.on("mouseenter", "start", () => {
-              // e.preventDefault();
-              // console.log("HELLO");
               canvas.style.cursor = "move";
+              this.map.setPaintProperty("start", "circle-color", "#475250");
             });
 
             this.map.on("mouseleave", "start", () => {
               canvas.style.cursor = "";
+              this.map.setPaintProperty("start", "circle-color", "#203834");
             });
 
             this.map.on("mousedown", "start", e => {
               e.preventDefault();
-              canvas.style.cursor = "grab"
-            })
+              canvas.style.cursor = "grab";
+
+              const onMove = moveEvent => {
+                canvas.style.cursor = "grabbing";
+                const coords = moveEvent.lngLat.toArray();
+
+                drawPoint(this.map, coords, "start");
+              };
+
+              this.map.on("mousemove", onMove);
+              this.map.once("mouseup", () => {
+                canvas.style.cursor = "";
+                this.map.off("mousemove", onMove);
+              });
+            });
 
             this.map.on("touchstart", "start", e => {
-              console.log(e)
-            })
+              if (e.points.length !== 1) return;
+              e.preventDefault();
+
+              const onMove = moveEvent => {
+                const coords = moveEvent.lngLat.toArray();
+
+                drawPoint(this.map, coords, "start");
+              };
+
+              this.map.on("touchmove", onMove);
+              this.map.once("touchend", () =>
+                this.map.off("touchmove", onMove)
+              );
+            });
           });
         }
       );
