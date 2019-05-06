@@ -3,7 +3,6 @@ import { Container, Segment, Grid, Loader, Modal } from "semantic-ui-react";
 
 class DriveCreation extends Component {
   render() {
-    console.log(this.props.map);
     return (
       <Container>
         <Segment>

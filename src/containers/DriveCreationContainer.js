@@ -43,9 +43,37 @@ class DriveCreationContainer extends Component {
             zoom: 8
           });
 
-          this.map.on("click", e => {
-            // console.log(e.lngLat);
-            drawPoint(this.map, e.lngLat.toArray(), "start")
+          this.map.on("load", () => {
+            drawPoint(
+              this.map,
+              [this.state.curLng, this.state.curLat],
+              "start"
+            );
+            const canvas = this.map.getCanvasContainer();
+
+            this.map.on("click", e => {
+              // console.log(e.lngLat);
+              drawPoint(this.map, e.lngLat.toArray(), "end");
+            });
+
+            this.map.on("mouseenter", "start", () => {
+              // e.preventDefault();
+              // console.log("HELLO");
+              canvas.style.cursor = "move";
+            });
+
+            this.map.on("mouseleave", "start", () => {
+              canvas.style.cursor = "";
+            });
+
+            this.map.on("mousedown", "start", e => {
+              e.preventDefault();
+              canvas.style.cursor = "grab"
+            })
+
+            this.map.on("touchstart", "start", e => {
+              console.log(e)
+            })
           });
         }
       );
