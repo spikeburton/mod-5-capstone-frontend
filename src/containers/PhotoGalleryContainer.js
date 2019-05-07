@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import PhotoGallery from "../components/PhotoGallery";
 
 class PhotoGalleryContainer extends Component {
+  state = {
+    loading: false
+  }
+
   upload = () => {
     console.log("UPLOAD")
   }
@@ -14,6 +18,7 @@ class PhotoGalleryContainer extends Component {
           close={this.props.close}
           drive={this.props.drive}
           upload={this.upload}
+          loading={this.state.loading}
         />
       </div>
     );
