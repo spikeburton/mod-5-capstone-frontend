@@ -26,7 +26,13 @@ class PhotoGallery extends Component {
             )}
           </Modal.Content>
           <Modal.Actions>
-            <Button color="black" onClick={() => this.props.upload()}>
+            <input
+              type="file"
+              hidden
+              ref={el => (this.uploadInput = el)}
+              onChange={this.props.upload}
+            />
+            <Button color="black" onClick={() => this.uploadInput.click()}>
               <Icon name="upload" />
               Upload
             </Button>
