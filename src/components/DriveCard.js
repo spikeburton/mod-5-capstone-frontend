@@ -11,8 +11,9 @@ const DriveCard = props => {
       <Image
         src={require("../images/fence.jpg")}
         alt="bridge"
-        style={{ height: "220px", width: "100%" }}
+        style={{ height: "220px" }}
         centered
+        fluid
         // wrapped
       />
       <Card.Content>
