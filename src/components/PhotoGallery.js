@@ -39,8 +39,8 @@ class PhotoGallery extends Component {
                       // wrapped
                     />
                     <Card.Content>
-                      <Card.Header>Added by {photo.user_id}</Card.Header>
-                      <Card.Meta>{photo.created_at}</Card.Meta>
+                      <Card.Header>Added by {photo.added_by}</Card.Header>
+                      <Card.Meta>{new Date(photo.created_at).toLocaleString()}</Card.Meta>
                     </Card.Content>
                   </Card>
                 ))}
