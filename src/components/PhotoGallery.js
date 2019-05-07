@@ -11,7 +11,6 @@ import {
 
 class PhotoGallery extends Component {
   render() {
-    console.log(this.props.drive);
     const { drive, photos } = this.props;
 
     return (

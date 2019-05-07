@@ -5,14 +5,28 @@ import { API } from "../data";
 class PhotoGalleryContainer extends Component {
   state = {
     loading: false,
-    photos: null
+    photos: []
   };
 
   handleMount = () => {
-    console.log("open")
+    fetch(`${API}/drives/${this.props.drive.id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+      .then(response => response.json())
+      .then(payload => {
+        this.setState({
+          photos: payload.photos
+        });
+      });
+  };
+
+  handleUnmount = () => {
     this.setState({
       loading: false,
-      photos: this.props.drive.photos
+      photos: []
     })
   }
 
@@ -25,48 +39,48 @@ class PhotoGalleryContainer extends Component {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
-    }).then(response => response.json())
-    .then(payload => {
-      const fields = payload.form_data
-      const url = payload.url
-
-      const data = new FormData();
-      Object.keys(fields).forEach(i => {
-        data.append(i, fields[i])
-      })
-      data.append("file", file)
-
-      fetch(url, {
-        method: "POST",
-        body: data
-      })
-      .then(response => response.text())
-      .then(str => {
-        const imageURL = new DOMParser().parseFromString(
-          str,
-          "application/xml"
-        ).getElementsByTagName("Location")[0].textContent;
-
-        fetch(`${API}/photos`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            drive_id: id,
-            image_url: imageURL
-          })
-        }).then(response => response.json())
-        .then(payload => {
-          this.setState({
-            loading: false,
-            photos: [...this.state.photos, payload]
-          })
-
-        })
-      })
     })
+      .then(response => response.json())
+      .then(payload => {
+        const fields = payload.form_data;
+        const url = payload.url;
+
+        const data = new FormData();
+        Object.keys(fields).forEach(i => {
+          data.append(i, fields[i]);
+        });
+        data.append("file", file);
+
+        fetch(url, {
+          method: "POST",
+          body: data
+        })
+          .then(response => response.text())
+          .then(str => {
+            const imageURL = new DOMParser()
+              .parseFromString(str, "application/xml")
+              .getElementsByTagName("Location")[0].textContent;
+
+            fetch(`${API}/photos`, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                drive_id: id,
+                image_url: imageURL
+              })
+            })
+              .then(response => response.json())
+              .then(payload => {
+                this.setState({
+                  loading: false,
+                  photos: [...this.state.photos, payload]
+                });
+              });
+          });
+      });
   };
 
   render() {
