@@ -7,11 +7,13 @@ import UnsaveButton from "./UnsaveButton";
 const DriveCard = props => {
   const { drive } = props;
   return (
-    <Card raised>
+    <Card raised onClick={() => props.handleClick(drive.id)}>
       <Image
         src={require("../images/fence.jpg")}
         alt="bridge"
-        style={{ height: "200px", width: "100%" }}
+        style={{ height: "220px", width: "100%" }}
+        centered
+        // wrapped
       />
       <Card.Content>
         <Card.Header>{drive.name}</Card.Header>
