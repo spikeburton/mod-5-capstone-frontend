@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import SubMenu from "../components/SubMenu";
 import MainContent from "../components/MainContent";
 import ViewModalContainer from "./ViewModalContainer";
+import PhotoGalleryContainer from "./PhotoGalleryContainer";
 
 import { fetchDrives } from "../actions/driveActions";
 import {
@@ -15,7 +16,9 @@ import { openModal } from "../actions/mapActions";
 
 class MainContentContainer extends Component {
   state = {
-    page: "all"
+    page: "all",
+    photoGallery: false,
+    current: null
   };
 
   componentDidMount() {
@@ -28,16 +31,19 @@ class MainContentContainer extends Component {
   };
 
   handleClick = id => {
-    console.log(id)
-  }
+    this.setState({
+      current: id,
+      photoGallery: true
+    });
+  };
 
   render() {
     let drives;
     if (this.state.page === "favorites") {
-      const favorites = this.props.favorites.map(favorite => favorite.drive_id)
-      drives = this.props.drives.filter(drive => favorites.includes(drive.id))
+      const favorites = this.props.favorites.map(favorite => favorite.drive_id);
+      drives = this.props.drives.filter(drive => favorites.includes(drive.id));
     } else {
-      drives = this.props.drives
+      drives = this.props.drives;
     }
 
     return (
@@ -55,6 +61,11 @@ class MainContentContainer extends Component {
           handleClick={this.handleClick}
         />
         <ViewModalContainer />
+        <PhotoGalleryContainer
+          open={this.state.photoGallery}
+          close={() => this.setState({ photoGallery: false, current: null })}
+          id={this.state.current}
+        />
       </div>
     );
   }
