@@ -27,13 +27,20 @@ class MainContentContainer extends Component {
     this.setState({ page });
   };
 
+  handleClick = drive => {
+    this.setState({
+      current: drive,
+      photoGallery: true
+    });
+  };
+
   render() {
     let drives;
     if (this.state.page === "favorites") {
-      const favorites = this.props.favorites.map(favorite => favorite.drive_id)
-      drives = this.props.drives.filter(drive => favorites.includes(drive.id))
+      const favorites = this.props.favorites.map(favorite => favorite.drive_id);
+      drives = this.props.drives.filter(drive => favorites.includes(drive.id));
     } else {
-      drives = this.props.drives
+      drives = this.props.drives;
     }
 
     return (
@@ -48,6 +55,7 @@ class MainContentContainer extends Component {
           handleSave={this.props.addFavorite}
           handleUnsave={this.props.removeFavorite}
           favorites={this.props.favorites}
+          handleClick={this.handleClick}
         />
         <ViewModalContainer />
       </div>

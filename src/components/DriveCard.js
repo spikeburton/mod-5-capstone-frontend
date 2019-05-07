@@ -8,10 +8,18 @@ const DriveCard = props => {
   const { drive } = props;
   return (
     <Card raised>
+      {/* NOTE: If the drive has any photos, render the first one. Otherwise, render a generic image. */}
       <Image
-        src={require("../images/fence.jpg")}
+        src={
+          drive.photos.length > 0
+            ? drive.photos[0].image_url
+            : require("../images/fence.jpg")
+        }
         alt="bridge"
-        style={{ height: "200px", width: "100%" }}
+        style={{ height: "220px" }}
+        fluid
+        // centered
+        // wrapped
       />
       <Card.Content>
         <Card.Header>{drive.name}</Card.Header>
