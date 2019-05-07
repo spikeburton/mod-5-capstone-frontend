@@ -3,6 +3,7 @@ import { Modal, Button, Icon, Segment, Header } from "semantic-ui-react";
 
 class PhotoGallery extends Component {
   render() {
+    console.log(this.props.drive)
     return (
       <div>
         <Modal open={this.props.open} closeIcon onClose={this.props.close}>

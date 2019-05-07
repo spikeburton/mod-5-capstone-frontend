@@ -30,9 +30,9 @@ class MainContentContainer extends Component {
     this.setState({ page });
   };
 
-  handleClick = id => {
+  handleClick = drive => {
     this.setState({
-      current: id,
+      current: drive,
       photoGallery: true
     });
   };
@@ -64,7 +64,7 @@ class MainContentContainer extends Component {
         <PhotoGalleryContainer
           open={this.state.photoGallery}
           close={() => this.setState({ photoGallery: false, current: null })}
-          id={this.state.current}
+          drive={this.state.current}
         />
       </div>
     );

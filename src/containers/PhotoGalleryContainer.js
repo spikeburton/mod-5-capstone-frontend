@@ -8,7 +8,7 @@ class PhotoGalleryContainer extends Component {
         <PhotoGallery
           open={this.props.open}
           close={this.props.close}
-          id={this.props.id}
+          drive={this.props.drive}
         />
       </div>
     );
