@@ -16,9 +16,7 @@ import { openModal } from "../actions/mapActions";
 
 class MainContentContainer extends Component {
   state = {
-    page: "all",
-    photoGallery: false,
-    current: null
+    page: "all"
   };
 
   componentDidMount() {
@@ -61,11 +59,6 @@ class MainContentContainer extends Component {
           handleClick={this.handleClick}
         />
         <ViewModalContainer />
-        <PhotoGalleryContainer
-          open={this.state.photoGallery}
-          close={() => this.setState({ photoGallery: false, current: null })}
-          drive={this.state.current}
-        />
       </div>
     );
   }
