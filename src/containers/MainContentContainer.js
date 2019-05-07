@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import SubMenu from "../components/SubMenu";
 import MainContent from "../components/MainContent";
 import ViewModalContainer from "./ViewModalContainer";
-import PhotoGalleryContainer from "./PhotoGalleryContainer";
 
 import { fetchDrives } from "../actions/driveActions";
 import {
