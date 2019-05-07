@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Modal,
   Button,
@@ -6,35 +6,38 @@ import {
   Image,
   Segment,
   Header,
-  Card,
-  Loader
+  Card
 } from "semantic-ui-react";
 
 class PhotoGallery extends Component {
   render() {
     console.log(this.props.drive);
-    const { drive } = this.props;
+    const { drive, photos } = this.props;
 
     return (
       <div>
-        <Modal open={this.props.open} closeIcon onClose={this.props.close}>
+        <Modal
+          open={this.props.open}
+          closeIcon
+          onClose={this.props.close}
+          onMount={this.props.handleMount}
+        >
           <Modal.Header>
             <Icon name="image" />
             Photo Gallery
           </Modal.Header>
           <Modal.Content scrolling>
-            {drive && (drive.photos.length > 0 || this.props.loading) ? (
+            {photos && (photos.length > 0 || this.props.loading) ? (
               <Card.Group
-              // centered
-              itemsPerRow={3}
-              stackable
+                // centered
+                itemsPerRow={3}
+                stackable
               >
-                {drive.photos.map((photo, i) => (
+                {photos.map((photo, i) => (
                   <Card key={i} raised>
                     <Image
                       src={photo.image_url}
                       // wrapped
-                      // size="large"
                     />
                     <Card.Content>
                       <Card.Header>Added by {photo.user_id}</Card.Header>
@@ -44,9 +47,7 @@ class PhotoGallery extends Component {
                 ))}
                 {this.props.loading ? (
                   <Card raised>
-                    <Segment placeholder loading style={{height: "100%"}}>
-                      {/* <Loader className="workaround" active /> */}
-                    </Segment>
+                    <Segment placeholder loading style={{ height: "100%" }} />
                   </Card>
                 ) : null}
               </Card.Group>
@@ -58,16 +59,22 @@ class PhotoGallery extends Component {
             )}
           </Modal.Content>
           <Modal.Actions>
-            <input
-              type="file"
-              hidden
-              ref={el => (this.uploadInput = el)}
-              onChange={this.props.upload}
-            />
-            <Button color="black" onClick={() => this.uploadInput.click()}>
-              <Icon name="upload" />
-              Upload
-            </Button>
+            {drive ? (
+              <Fragment>
+                <input
+                  type="file"
+                  hidden
+                  ref={el => (this.uploadInput = el)}
+                  onChange={() =>
+                    this.props.upload(this.uploadInput.files, drive.id)
+                  }
+                />
+                <Button color="black" onClick={() => this.uploadInput.click()}>
+                  <Icon name="upload" />
+                  Upload
+                </Button>
+              </Fragment>
+            ) : null}
           </Modal.Actions>
         </Modal>
       </div>
