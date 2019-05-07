@@ -23,9 +23,11 @@ class PhotoGallery extends Component {
             Photo Gallery
           </Modal.Header>
           <Modal.Content scrolling>
-            {drive && drive.photos.length > 0 ? (
+            {drive && (drive.photos.length > 0 || this.props.loading) ? (
               <Card.Group
-              // itemsPerRow={3}
+              // centered
+              itemsPerRow={3}
+              stackable
               >
                 {drive.photos.map((photo, i) => (
                   <Card key={i} raised>
