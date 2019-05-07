@@ -7,6 +7,7 @@ class PhotoGalleryContainer extends Component {
   }
 
   upload = () => {
+    this.setState({ loading: true })
     console.log("UPLOAD")
   }
 
