@@ -20,6 +20,7 @@ class PhotoGallery extends Component {
           closeIcon
           onClose={this.props.close}
           onMount={this.props.handleMount}
+          onUnmount={this.props.handleUnmount}
         >
           <Modal.Header>
             <Icon name="image" />
@@ -28,7 +29,6 @@ class PhotoGallery extends Component {
           <Modal.Content scrolling>
             {photos && (photos.length > 0 || this.props.loading) ? (
               <Card.Group
-                // centered
                 itemsPerRow={3}
                 stackable
               >

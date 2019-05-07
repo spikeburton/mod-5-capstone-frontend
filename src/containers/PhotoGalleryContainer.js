@@ -94,6 +94,7 @@ class PhotoGalleryContainer extends Component {
           upload={this.upload}
           loading={this.state.loading}
           handleMount={this.handleMount}
+          handleUnmount={this.handleUnmount}
         />
       </div>
     );
