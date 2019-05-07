@@ -65,7 +65,7 @@ class ViewModal extends Component {
               </Grid>
             </Modal.Content>
             <Modal.Actions>
-              <Button color="blue" onClick={this.props.openGallery}>
+              <Button color={current.photos.length > 0 ? "blue" : ""} onClick={this.props.openGallery}>
                 <Icon name="picture" />
                 Photos
               </Button>
