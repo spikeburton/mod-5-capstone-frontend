@@ -7,8 +7,12 @@ import { closeModal, fetchDirections } from "../actions/mapActions";
 import { addFavorite, removeFavorite } from "../actions/favoriteActions";
 import { drawBounds, drawPoint, drawRoute } from "../lib/mapHelpers";
 import ViewModal from "../components/ViewModal";
+import PhotoGalleryContainer from "./PhotoGalleryContainer";
 
 class ViewModalContainer extends Component {
+  state = {
+    photoGallery: false
+  };
   /* ---
   When the modal is mounted in the DOM, this is when the map is drawn.
   A request is sent to the Directions API to grab the routing and directions
@@ -82,27 +86,35 @@ class ViewModalContainer extends Component {
       : false;
 
     return (
-      <ViewModal
-        open={this.props.modalOpen}
-        current={this.props.current}
-        route={this.props.route}
-        directions={this.props.directions}
-        saved={
-          saved
-            ? this.props.favorites.find(
-                f => f.drive_id === this.props.current.id
-              )
-            : false
-        }
-        handleMount={this.handleMount}
-        handleUnmount={this.handleUnmount}
-        handleClose={this.props.closeModal}
-        handleSave={this.props.handleSave}
-        handleUnsave={this.props.handleUnsave}
-        handleZoomToStep={this.handleZoomToStep}
-        handleMouseEnter={this.handleMouseEnter}
-        handleMouseLeave={this.handleMouseLeave}
-      />
+      <div>
+        <ViewModal
+          open={this.props.modalOpen}
+          current={this.props.current}
+          route={this.props.route}
+          directions={this.props.directions}
+          saved={
+            saved
+              ? this.props.favorites.find(
+                  f => f.drive_id === this.props.current.id
+                )
+              : false
+          }
+          handleMount={this.handleMount}
+          handleUnmount={this.handleUnmount}
+          handleClose={this.props.closeModal}
+          handleSave={this.props.handleSave}
+          handleUnsave={this.props.handleUnsave}
+          handleZoomToStep={this.handleZoomToStep}
+          handleMouseEnter={this.handleMouseEnter}
+          handleMouseLeave={this.handleMouseLeave}
+          openGallery={() => this.setState({ photoGallery: true })}
+        />
+        <PhotoGalleryContainer
+          open={this.state.photoGallery}
+          close={() => this.setState({ photoGallery: false })}
+          drive={this.props.current}
+        />
+      </div>
     );
   }
 }
