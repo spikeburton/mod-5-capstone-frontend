@@ -12,7 +12,6 @@ import {
 
 import SaveButton from "./SaveButton";
 import UnsaveButton from "./UnsaveButton";
-import CloseButton from "./CloseButton";
 import DirectionListItem from "./DirectionListItem";
 
 class ViewModal extends Component {
