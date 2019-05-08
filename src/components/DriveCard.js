@@ -13,10 +13,10 @@ const DriveCard = props => {
         src={
           drive.photos.length > 0
             ? drive.photos[0].image_url
-            : require("../images/fence.jpg")
+            : require("../images/default.jpeg")
         }
         alt="bridge"
-        style={{ height: "220px" }}
+        style={{ height: "240px" }}
         fluid
         // centered
         // wrapped
