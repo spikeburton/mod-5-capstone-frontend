@@ -36,6 +36,7 @@ class PhotoGallery extends Component {
                   <Card key={i} raised>
                     <Image
                       src={photo.image_url}
+                      style={{maxHeight: "240px"}}
                       // wrapped
                     />
                     <Card.Content>
