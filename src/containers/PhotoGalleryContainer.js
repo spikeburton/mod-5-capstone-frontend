@@ -27,12 +27,13 @@ class PhotoGalleryContainer extends Component {
     this.setState({
       loading: false,
       photos: []
-    })
-  }
+    });
+  };
 
   upload = (files, id) => {
-    this.setState({ loading: true });
     const file = files[0];
+    if (!file) return;
+    this.setState({ loading: true });
 
     fetch(`${API}/signed_s3`, {
       method: "GET",
