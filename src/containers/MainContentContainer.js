@@ -27,13 +27,6 @@ class MainContentContainer extends Component {
     this.setState({ page });
   };
 
-  handleClick = drive => {
-    this.setState({
-      current: drive,
-      photoGallery: true
-    });
-  };
-
   render() {
     let drives;
     if (this.state.page === "favorites") {
@@ -55,7 +48,6 @@ class MainContentContainer extends Component {
           handleSave={this.props.addFavorite}
           handleUnsave={this.props.removeFavorite}
           favorites={this.props.favorites}
-          handleClick={this.handleClick}
         />
         <ViewModalContainer />
       </div>

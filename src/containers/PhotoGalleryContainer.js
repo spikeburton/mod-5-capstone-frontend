@@ -6,6 +6,7 @@ import {
   uploadPhoto,
   clearGallery
 } from "../actions/photoActions";
+import { fetchDrives } from "../actions/driveActions";
 
 class PhotoGalleryContainer extends Component {
   handleMount = () => {
@@ -14,6 +15,7 @@ class PhotoGalleryContainer extends Component {
 
   handleUnmount = () => {
     this.props.clearGallery();
+    this.props.fetchDrives();
   };
 
   upload = (files, id) => {
@@ -50,7 +52,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchPhotos: driveId => fetchPhotos(driveId)(dispatch),
     uploadPhoto: (files, id) => uploadPhoto(files, id)(dispatch),
-    clearGallery: () => dispatch(clearGallery())
+    clearGallery: () => dispatch(clearGallery()),
+    fetchDrives: () => fetchDrives()(dispatch)
   };
 };
 
