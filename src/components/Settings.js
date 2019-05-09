@@ -87,8 +87,9 @@ class Settings extends Component {
   };
 
   handleUpload = () => {
-    this.setState({ loading: true, avatar_url: "" });
     const file = this.avatarInput.files[0];
+    if (!file) return;
+    this.setState({ loading: true, avatar_url: "" });
 
     fetch(`${API}/signed_s3`, {
       method: "GET",

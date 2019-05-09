@@ -22,7 +22,6 @@ const MainContent = props => {
                   ? favorites.find(cur => cur.drive_id === drive.id)
                   : false
               }
-              handleClick={props.handleClick}
             />
           ))}
         </Card.Group>

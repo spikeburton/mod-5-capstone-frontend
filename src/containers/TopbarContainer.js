@@ -21,11 +21,16 @@ class TopbarContainer extends Component {
       <div>
         <div
           id="topbar-container"
-          style={{
-            background: localStorage.getItem("token")
-              ? "#aab4b2"
-              : colors[Math.floor(Math.random() * colors.length)]
-          }}
+          style={
+            localStorage.getItem("token")
+              ? {
+                  // background: "#aab4b2"
+                }
+              : {
+                  background: colors[Math.floor(Math.random() * colors.length)],
+                  color: "white"
+                }
+          }
         >
           <Navbar active="main" />
           <Topbar />

@@ -61,7 +61,11 @@ class DriveCreation extends Component {
             <Grid.Column>
               <div
                 id="create-map-container"
-                style={{ width: "100%", height: "400px", borderRadius: "7px" }}
+                style={{
+                  width: "100%",
+                  height: "400px",
+                  borderRadius: "7px"
+                }}
               />
             </Grid.Column>
           </Grid>

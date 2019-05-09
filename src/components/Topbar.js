@@ -18,12 +18,12 @@ const Topbar = props => {
       <Grid.Column>
         <Grid columns={2} centered>
           <Grid.Column>
-            <Image size="medium" src={require("../images/tesla2.png")} />
+            {/* <div style={{ color: "white", textAlign: "justify" }}>
+              <p></p>
+            </div> */}
           </Grid.Column>
           <Grid.Column>
-            <div style={{ color: "white", textAlign: "justify" }}>
-              <p></p>
-            </div>
+            <Image size="medium" src={require("../images/tesla2.png")} />
           </Grid.Column>
         </Grid>
       </Grid.Column>

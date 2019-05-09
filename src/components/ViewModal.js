@@ -12,7 +12,6 @@ import {
 
 import SaveButton from "./SaveButton";
 import UnsaveButton from "./UnsaveButton";
-import CloseButton from "./CloseButton";
 import DirectionListItem from "./DirectionListItem";
 
 class ViewModal extends Component {
@@ -65,7 +64,7 @@ class ViewModal extends Component {
               </Grid>
             </Modal.Content>
             <Modal.Actions>
-              <Button color={current.photos.length > 0 ? "blue" : ""} onClick={this.props.openGallery}>
+              <Button color={current.photos.length > 0 ? "blue" : null} onClick={this.props.openGallery}>
                 <Icon name="picture" />
                 Photos
               </Button>
