@@ -1,99 +1,36 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import PhotoGallery from "../components/PhotoGallery";
-import { API } from "../data";
+import {
+  fetchPhotos,
+  uploadPhoto,
+  clearGallery
+} from "../actions/photoActions";
 
 class PhotoGalleryContainer extends Component {
-  state = {
-    loading: false,
-    photos: []
-  };
-
   handleMount = () => {
-    fetch(`${API}/drives/${this.props.drive.id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-      .then(response => response.json())
-      .then(payload => {
-        this.setState({
-          photos: payload.photos
-        });
-      });
+    this.props.fetchPhotos(this.props.drive.id);
   };
 
   handleUnmount = () => {
-    this.setState({
-      loading: false,
-      photos: []
-    });
+    this.props.clearGallery();
   };
 
   upload = (files, id) => {
-    const file = files[0];
-    if (!file) return;
-    this.setState({ loading: true });
-
-    fetch(`${API}/signed_s3`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    })
-      .then(response => response.json())
-      .then(payload => {
-        const fields = payload.form_data;
-        const url = payload.url;
-
-        const data = new FormData();
-        Object.keys(fields).forEach(i => {
-          data.append(i, fields[i]);
-        });
-        data.append("file", file);
-
-        fetch(url, {
-          method: "POST",
-          body: data
-        })
-          .then(response => response.text())
-          .then(str => {
-            const imageURL = new DOMParser()
-              .parseFromString(str, "application/xml")
-              .getElementsByTagName("Location")[0].textContent;
-
-            fetch(`${API}/photos`, {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                drive_id: id,
-                image_url: imageURL
-              })
-            })
-              .then(response => response.json())
-              .then(payload => {
-                this.setState({
-                  loading: false,
-                  photos: [...this.state.photos, payload]
-                });
-              });
-          });
-      });
+    this.props.uploadPhoto(files, id);
   };
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <PhotoGallery
           open={this.props.open}
           close={this.props.close}
           drive={this.props.drive}
-          photos={this.state.photos}
+          photos={this.props.photos}
           upload={this.upload}
-          loading={this.state.loading}
+          loading={this.props.loading}
           handleMount={this.handleMount}
           handleUnmount={this.handleUnmount}
         />
@@ -102,4 +39,22 @@ class PhotoGalleryContainer extends Component {
   }
 }
 
-export default PhotoGalleryContainer;
+const mapStateToProps = state => {
+  return {
+    photos: state.photos.photos,
+    loading: state.photos.loading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchPhotos: driveId => fetchPhotos(driveId)(dispatch),
+    uploadPhoto: (files, id) => uploadPhoto(files, id)(dispatch),
+    clearGallery: () => dispatch(clearGallery())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PhotoGalleryContainer);
