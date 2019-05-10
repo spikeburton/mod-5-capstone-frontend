@@ -4,7 +4,11 @@ import Navbar from "../components/Navbar";
 import DriveCreation from "../components/DriveCreation";
 
 import { Map } from "mapbox-gl";
-import { fetchDirections, fetchGeolocation } from "../actions/mapActions";
+import {
+  fetchDirections,
+  fetchGeolocation,
+  cleanupGeodata
+} from "../actions/mapActions";
 import { drawPoint, drawRoute } from "../lib/mapHelpers";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -170,6 +174,7 @@ class DriveCreationContainer extends Component {
 
   componentWillUnmount() {
     if (this.map) this.map.remove();
+    this.props.cleanupGeodata();
   }
 
   handleChange = e => {
@@ -280,7 +285,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchDirections: bounds => fetchDirections(bounds)(dispatch),
     fetchGeolocation: (coords, point) =>
-      fetchGeolocation(coords, point)(dispatch)
+      fetchGeolocation(coords, point)(dispatch),
+    cleanupGeodata: () => dispatch(cleanupGeodata())
   };
 };
 

@@ -41,6 +41,8 @@ export const mapReducer = (
         geolocationEnd: action.geolocation,
         region: action.region
       };
+    case "CLEANUP_GEODATA":
+      return { ...state, geolocationStart: "", geolocationEnd: "", region: "" };
     default:
       return state;
   }

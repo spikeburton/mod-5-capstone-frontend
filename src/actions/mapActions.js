@@ -57,3 +57,7 @@ export const fetchGeolocation = (coords, point) => {
       });
   };
 };
+
+export const cleanupGeodata = () => {
+  return { type: "CLEANUP_GEODATA" }
+}
