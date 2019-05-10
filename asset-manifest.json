@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/mod-5-capstone-frontend/static/css/main.8d49cfe8.chunk.css",
+    "main.js": "/mod-5-capstone-frontend/static/js/main.3b341842.chunk.js",
+    "main.js.map": "/mod-5-capstone-frontend/static/js/main.3b341842.chunk.js.map",
+    "runtime~main.js": "/mod-5-capstone-frontend/static/js/runtime~main.d6d2ff85.js",
+    "runtime~main.js.map": "/mod-5-capstone-frontend/static/js/runtime~main.d6d2ff85.js.map",
+    "static/css/2.7dfe1aab.chunk.css": "/mod-5-capstone-frontend/static/css/2.7dfe1aab.chunk.css",
+    "static/js/2.2c63dbf1.chunk.js": "/mod-5-capstone-frontend/static/js/2.2c63dbf1.chunk.js",
+    "static/js/2.2c63dbf1.chunk.js.map": "/mod-5-capstone-frontend/static/js/2.2c63dbf1.chunk.js.map",
+    "index.html": "/mod-5-capstone-frontend/index.html",
+    "precache-manifest.8ba1b28870bea5224a0896f1e932e3a2.js": "/mod-5-capstone-frontend/precache-manifest.8ba1b28870bea5224a0896f1e932e3a2.js",
+    "service-worker.js": "/mod-5-capstone-frontend/service-worker.js",
+    "static/css/2.7dfe1aab.chunk.css.map": "/mod-5-capstone-frontend/static/css/2.7dfe1aab.chunk.css.map",
+    "static/css/main.8d49cfe8.chunk.css.map": "/mod-5-capstone-frontend/static/css/main.8d49cfe8.chunk.css.map",
+    "static/media/semantic.css": "/mod-5-capstone-frontend/static/media/outline-icons.ef60a4f6.woff",
+    "static/media/default.jpeg": "/mod-5-capstone-frontend/static/media/default.1b23ebd3.jpeg",
+    "static/media/tesla2.png": "/mod-5-capstone-frontend/static/media/tesla2.2ada9e61.png",
+    "static/media/index.css": "/mod-5-capstone-frontend/static/media/woman-pointing.b22864f0.jpg"
+  }
+}
